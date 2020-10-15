@@ -19,7 +19,7 @@
         <item name="android:panelColorForeground">@color/colorPrimary</item>
         <item name="android:itemTextAppearance">@style/MenuTextAppearance</item>
         <item name="android:textColorHint">@color/colorLightDarkHint</item>
-        <item name="android:fontFamily">@font/brown_thin</item>
+        <item name="android:fontFamily">@font/roboto_thin</item>
 
         <item name="materialButtonStyle">@style/MaterialTextButtonStyle</item>
         <item name="textInputStyle">@style/MaterialTextBoxStyleOutline</item>
@@ -33,7 +33,7 @@
 
     <style name="MenuTextAppearance" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:textColor">@color/colorLightDark</item>
-        <item name="fontFamily">@font/brown_thin</item>
+        <item name="fontFamily">@font/roboto_thin</item>
         <item name="android:textStyle">normal</item>
     </style>
 
@@ -365,13 +365,13 @@
     <!--    the appearance of the chip text-->
     <style name="ChipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textSize">12sp</item>
-        <item name="android:fontFamily">@font/brown_thin</item>
+        <item name="android:fontFamily">@font/roboto_thin</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="ChipTextAppearanceSmall" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textSize">10sp</item>
-        <item name="android:fontFamily">@font/brown_thin</item>
+        <item name="android:fontFamily">@font/roboto_thin</item>
         <item name="android:textStyle">normal</item>
         <item name="android:padding">5dp</item>
         <item name="android:textColor">@color/colorPrimary</item>
