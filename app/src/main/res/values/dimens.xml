@@ -4,4 +4,5 @@
     <dimen name="card_elevation">1dp</dimen>
     <dimen name="card_radius">4dp</dimen>
     <dimen name="button_radius">4dp</dimen>
+    <dimen name="button_height">55dp</dimen>
 </resources>

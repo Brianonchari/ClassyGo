@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ClassyGo</string>
+    <string name="reset_password_message">Sorry, It happens to people. \nJust provide your email and we will help you out</string>
+    <string name="email_address">Email Address</string>
+    <string name="request_reset">Request Reset</string>
+    <string name="working_to_reset_password">Working on Password Reset</string>
 </resources>
