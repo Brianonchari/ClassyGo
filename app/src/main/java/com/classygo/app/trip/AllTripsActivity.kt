@@ -9,7 +9,6 @@ import com.classygo.app.R
 import com.classygo.app.model.Trip
 import com.classygo.app.model.TripLocation
 import kotlinx.android.synthetic.main.activity_all_trips.*
-import kotlinx.android.synthetic.main.home_toolbar.*
 import java.util.*
 import kotlin.collections.ArrayList
 

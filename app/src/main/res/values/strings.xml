@@ -3,4 +3,5 @@
 
     <!--    the tips title -->
     <string name="trips_activity_title">Available Trips</string>
+    <string name="join_trip">Join Trip</string>
 </resources>

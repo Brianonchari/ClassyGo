@@ -65,7 +65,6 @@ class TripFeedAdapter(private val activity: Activity, private var items: List<Tr
         if (data.image?.isNotEmpty()!!) {
             Picasso.get().load(data.image).into(imageViewTrip)
         }
-
     }
 }
 
