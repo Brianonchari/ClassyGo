@@ -4,7 +4,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:background="@color/colorWhite"
+    android:background="@color/colorPrimary"
     android:minHeight="?attr/actionBarSize"
     app:elevation="@dimen/main_bar_elevation"
     app:layout_collapseMode="pin"
@@ -38,9 +38,9 @@
             android:lines="1"
             android:maxLines="1"
             android:text="@string/trips_activity_title"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorWhite" />
 
 
     </LinearLayout>
