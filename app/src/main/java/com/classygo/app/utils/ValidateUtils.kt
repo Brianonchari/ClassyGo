@@ -13,8 +13,10 @@ fun TextInputLayout.validateEmail(): String?{
     val value = this.editText?.text.toString()
 
     this.editText?.doOnTextChanged { _, _, _, _ ->
-        this.error = ""
-        this.isErrorEnabled = false
+        if(this.isErrorEnabled){
+            this.error = ""
+            this.isErrorEnabled = false
+        }
     }
 
     if (value.trim().isBlank()) {
