@@ -14,8 +14,6 @@ class AllTripsActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
         supportActionBar?.title = ""
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
