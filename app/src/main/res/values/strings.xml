@@ -4,4 +4,8 @@
     <string name="email_address">Email Address</string>
     <string name="request_reset">Request Reset</string>
     <string name="working_to_reset_password">Working on Password Reset</string>
+    <string name="email_required">Email is required</string>
+    <string name="invalid_email">Email is Invalid</string>
+    <string name="no_such_account">Email address or account unavailable</string>
+    <string name="error_title">Something Went Wrong</string>
 </resources>
