@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">ClassyGo</string>
+
     <string name="reset_password_message">Sorry, It happens to people. \nJust provide your email and we will help you out</string>
     <string name="email_address">Email Address</string>
     <string name="request_reset">Request Reset</string>
@@ -11,4 +12,19 @@
     <string name="reset_mail_sent">An Email With A Reset Link Has Been Sent To You. Kindly Check Your Email</string>
     <string name="back_to_login">LOGIN</string>
     <string name="reset_sent">Reset Link Sent</string>
+
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="password">Password</string>
+    <string name="email_address">Email Address</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="sing_up_as_driver">Sing Up As Driver</string>
+    <string name="get_started">Get Started</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="create_account">Create Account</string>
+    <string name="splash_activity">Splash Activity!</string>
+
 </resources>
