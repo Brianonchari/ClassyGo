@@ -1,9 +1,23 @@
 <resources>
     <string name="app_name">ClassyGo</string>
 
+<<<<<<< HEAD
     <!--    the tips title -->
     <string name="trips_activity_title">Available Trips</string>
     <string name="join_trip">Join Trip</string>
+=======
+    <string name="reset_password_message">Sorry, It happens to people. \nJust provide your email and we will help you out</string>
+    <string name="email_address">Email Address</string>
+    <string name="request_reset">Request Reset</string>
+    <string name="working_to_reset_password">Working on Password Reset</string>
+    <string name="email_required">Email is required</string>
+    <string name="invalid_email">Email is Invalid</string>
+    <string name="no_such_account">Email address or account unavailable</string>
+    <string name="error_title">Something Went Wrong</string>
+    <string name="reset_mail_sent">An Email With A Reset Link Has Been Sent To You. Kindly Check Your Email</string>
+    <string name="back_to_login">LOGIN</string>
+    <string name="reset_sent">Reset Link Sent</string>
+>>>>>>> 255a64c4c1cca15c8b6a13685c8ea2442e1b200e
 
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>

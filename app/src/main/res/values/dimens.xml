@@ -4,10 +4,14 @@
     <dimen name="card_elevation">4dp</dimen>
     <dimen name="card_radius">4dp</dimen>
     <dimen name="button_radius">4dp</dimen>
+<<<<<<< HEAD
 
     <!--    elevation for the toolbar-->
     <dimen name="main_bar_elevation">6dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="trip_image_height">150dp</dimen>
+=======
+    <dimen name="button_height">55dp</dimen>
+>>>>>>> 255a64c4c1cca15c8b6a13685c8ea2442e1b200e
 </resources>

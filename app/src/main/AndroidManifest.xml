@@ -16,6 +16,8 @@
 
         <activity android:name=".trip.AllTripsActivity" />
 
+<!--        <activity android:name=".recovery.ResetPasswordActivity"></activity>-->
+
         <activity android:name=".startup.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
