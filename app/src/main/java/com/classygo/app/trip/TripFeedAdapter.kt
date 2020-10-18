@@ -17,7 +17,7 @@ import com.squareup.picasso.Picasso
  * Created by Monarchy on 17/10/2020.
  */
 
-class TripFeedAdapter(private val activity: Activity, private var items: List<Trip>) :
+class TripFeedAdapter(private var items: List<Trip>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val constant = 100
 
@@ -37,7 +37,7 @@ class TripFeedAdapter(private val activity: Activity, private var items: List<Tr
         when (holder.itemViewType) {
             constant -> {
                 val viewHolderMallBanner = holder as TripViewHolder
-                configureTripViewHolder(viewHolderMallBanner, items[position], activity)
+                configureTripViewHolder(viewHolderMallBanner, items[position])
             }
         }
     }
@@ -56,14 +56,15 @@ class TripFeedAdapter(private val activity: Activity, private var items: List<Tr
     // MARK: configure the device
     private fun configureTripViewHolder(
         viewHolder: TripViewHolder,
-        data: Trip,
-        activity: Activity
+        data: Trip
     ) {
         val parent = viewHolder.itemView
         val imageViewTrip = viewHolder.imageViewTrip
 
-        if (data.image?.isNotEmpty()!!) {
-            Picasso.get().load(data.image).into(imageViewTrip)
+        data.image?.let {
+            if (it.isNotEmpty()) {
+                Picasso.get().load(data.image).into(imageViewTrip)
+            }
         }
     }
 }
