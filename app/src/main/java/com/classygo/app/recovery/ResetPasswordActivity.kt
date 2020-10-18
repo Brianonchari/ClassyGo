@@ -1,6 +1,7 @@
 package com.classygo.app.recovery
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -48,15 +49,12 @@ class ResetPasswordActivity : AppCompatActivity() {
         builder.setMessage(getString(R.string.reset_sent))
         builder.setPositiveButton(getString(R.string.back_to_login)) { dialogInterface, _ ->
             dialogInterface.dismiss()
-            /**
-             * Uncomment if LoginActivity Exists
-             * **/
-//            Intent(this, LoginActivity::class.java).apply {
-//                this.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-//                        Intent.FLAG_ACTIVITY_CLEAR_TASK or
-//                        Intent.FLAG_ACTIVITY_NEW_TASK
-//                startActivity(this)
-//            }
+            Intent(this, LoginActivity::class.java).apply {
+                this.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK or
+                        Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(this)
+            }
         }
         builder.create().show()
     }
