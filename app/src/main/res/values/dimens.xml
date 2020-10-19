@@ -5,9 +5,12 @@
     <dimen name="card_radius">4dp</dimen>
     <dimen name="button_radius">4dp</dimen>
 
+
     <!--    elevation for the toolbar-->
     <dimen name="main_bar_elevation">6dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="trip_image_height">150dp</dimen>
+    <dimen name="button_height">55dp</dimen>
+
 </resources>
