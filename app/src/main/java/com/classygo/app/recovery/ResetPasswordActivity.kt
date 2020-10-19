@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.classygo.app.R
+import com.classygo.app.setup.LoginActivity
 import com.classygo.app.utils.EventObserver
 import com.classygo.app.utils.validateEmail
 import kotlinx.android.synthetic.main.activity_reset_password.*

@@ -31,7 +31,7 @@ class AllTripsActivity : AppCompatActivity() {
 
     //MARK: set the recycler view layouts
     private fun setUpRecyclerView() {
-        baseAdapter = TripFeedAdapter(this, feedItems)
+        baseAdapter = TripFeedAdapter(feedItems)
         recyclerView.setHasFixedSize(true)
         recyclerView.isNestedScrollingEnabled = true
         val linearLayoutManager = LinearLayoutManager(this)
