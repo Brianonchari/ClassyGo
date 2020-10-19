@@ -1,4 +1,4 @@
-package com.classygo.app.startup.setup
+package com.classygo.app.setup
 
 import android.content.Intent
 import android.os.Bundle

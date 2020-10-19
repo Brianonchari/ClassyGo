@@ -8,7 +8,7 @@ import android.os.Looper
 
 
 import com.classygo.app.R
-import com.classygo.app.startup.setup.LoginActivity
+import com.classygo.app.setup.LoginActivity
 
 class SplashActivity : AppCompatActivity() {
     private val splashTime = 3000L
