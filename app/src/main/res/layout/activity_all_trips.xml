@@ -28,9 +28,10 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabNewTrip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_circle_outline"
+        app:srcCompat="@drawable/ic_add_circle_outline"
         android:tint="@color/colorWhite"
         app:fabSize="normal"
         app:layout_constraintBottom_toTopOf="@+id/materialCardViewSearch"
@@ -61,7 +62,7 @@
             android:drawableStart="@drawable/ic_searching"
             android:drawableEnd="@drawable/ic_qr_scan"
             android:drawablePadding="@dimen/margin_small"
-            android:hint="Where are you heading?"
+            android:hint="@string/where_are_you_heading"
             android:padding="@dimen/activity_horizontal_margin" />
 
 

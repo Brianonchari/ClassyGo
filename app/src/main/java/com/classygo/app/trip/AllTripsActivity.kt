@@ -1,5 +1,6 @@
 package com.classygo.app.trip
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +27,10 @@ class AllTripsActivity : AppCompatActivity() {
         supportActionBar?.title = ""
 
         setUpRecyclerView()
+
+        fabNewTrip.setOnClickListener {
+            startActivity(Intent(this, NewTrip::class.java))
+        }
     }
 
 
@@ -44,7 +49,15 @@ class AllTripsActivity : AppCompatActivity() {
 
     private fun addDummyData() {
         val route = TripLocation()
-        val trip = Trip("", route, "", "https://li1.modland.net/euro-truck-simulator-2/cars-bus/ets2_20200318_104918_00_ModLandNet.png", "12 Hours", Date(), Date())
+        val trip = Trip(
+            "",
+            route,
+            "",
+            "https://li1.modland.net/euro-truck-simulator-2/cars-bus/ets2_20200318_104918_00_ModLandNet.png",
+            "12 Hours",
+            Date(),
+            Date()
+        )
 
         feedItems.add(trip)
         feedItems.add(trip)
