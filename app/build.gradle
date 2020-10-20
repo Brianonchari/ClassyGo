@@ -62,6 +62,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.5.0'
     /**Firebase Auth**/
     implementation 'com.google.firebase:firebase-auth:19.4.0'
+    /**Firebase Storage**/
+    implementation 'com.google.firebase:firebase-storage-ktx'
 
     // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.1.1'

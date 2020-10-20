@@ -242,7 +242,7 @@
         <item name="boxCornerRadiusBottomEnd">0dp</item>
         <item name="boxCornerRadiusBottomStart">0dp</item>
         <item name="boxCornerRadiusTopEnd">0dp</item>
-        <item name="cornerRadius">0dp</item>
+        <item name="cornerRadius">@dimen/button_radius</item>
         <item name="backgroundTint">@color/primary_button_states</item>
         <item name="android:textColor">@color/primary_color_states</item>
     </style>
