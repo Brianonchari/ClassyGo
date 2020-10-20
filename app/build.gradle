@@ -58,6 +58,7 @@ dependencies {
 
     /**Activity**/
     implementation "androidx.activity:activity-ktx:$activity"
+
     /***Firebase Database*/
     implementation 'com.google.firebase:firebase-database:19.5.0'
     /**Firebase Auth**/

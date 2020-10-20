@@ -18,7 +18,8 @@
         <activity android:name=".recovery.ResetPasswordActivity" />
         <activity android:name=".setup.LoginActivity" />
         <activity android:name=".setup.SignUpActivity" />
-        <activity android:name=".startup.SplashActivity" >
+
+        <activity android:name=".startup.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
