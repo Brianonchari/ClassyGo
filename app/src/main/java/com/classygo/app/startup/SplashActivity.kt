@@ -5,11 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-
-
 import com.classygo.app.R
-import com.google.firebase.auth.FirebaseAuth
 
+import com.google.firebase.auth.FirebaseAuth
+import com.classygo.app.setup.LoginActivity
 
 
 class SplashActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.classygo.app.startup.setup
+package com.classygo.app.setup
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,6 @@ import android.widget.Toast
 import com.classygo.app.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -22,6 +21,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         mAuth = FirebaseAuth.getInstance()
         mAuth.signOut()
+
         btnSignIn.setOnClickListener {
             loginUser()
         }

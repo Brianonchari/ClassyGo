@@ -5,6 +5,7 @@
         <item name="colorSecondary">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="background">@color/colorBackground</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:textColorPrimary">@color/colorLightDark</item>
         <item name="android:textColor">@color/colorLightDark</item>
@@ -175,15 +176,15 @@
         <item name="android:insetTop">0dp</item>
         <item name="android:insetLeft">0dp</item>
         <item name="android:insetRight">0dp</item>
-        <item name="android:bottomLeftRadius">0dp</item>
-        <item name="android:bottomRightRadius">0dp</item>
-        <item name="android:topLeftRadius">0dp</item>
-        <item name="android:topRightRadius">0dp</item>
-        <item name="boxCornerRadiusBottomEnd">0dp</item>
-        <item name="boxCornerRadiusBottomStart">0dp</item>
-        <item name="boxCornerRadiusTopEnd">0dp</item>
-        <item name="boxCornerRadiusTopStart">0dp</item>
-        <item name="boxCollapsedPaddingTop">0dp</item>
+        <item name="android:bottomLeftRadius">4dp</item>
+        <item name="android:bottomRightRadius">4dp</item>
+        <item name="android:topLeftRadius">4dp</item>
+        <item name="android:topRightRadius">4dp</item>
+        <item name="boxCornerRadiusBottomEnd">4dp</item>
+        <item name="boxCornerRadiusBottomStart">4dp</item>
+        <item name="boxCornerRadiusTopEnd">4dp</item>
+        <item name="boxCornerRadiusTopStart">4dp</item>
+        <item name="boxCollapsedPaddingTop">4dp</item>
         <item name="boxStrokeWidth">1dp</item>
         <item name="boxStrokeColor">@color/colorLightDark</item>
         <item name="boxStrokeWidthFocused">1dp</item>
@@ -198,6 +199,7 @@
         <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="colorControlHighlight">@color/colorPrimary</item>
         <item name="endIconTint">@color/colorLightDark</item>
+        <item name="startIconTint">@color/colorLightDark</item>
     </style>
     <!--   end of the input style here -->
 
@@ -305,18 +307,15 @@
         <item name="cardBackgroundColor">@color/colorWhite</item>
         <item name="cardMaxElevation">@dimen/card_elevation</item>
         <item name="cardPreventCornerOverlap">true</item>
-        <item name="cardUseCompatPadding">false</item>
+        <item name="cardUseCompatPadding">true</item>
         <item name="contentPadding">0dp</item>
-        <item name="android:layout_marginTop">0dp</item>
-        <item name="android:layout_marginLeft">@dimen/negative_item_margin</item>
-        <item name="android:layout_marginRight">@dimen/negative_item_margin</item>
-        <item name="android:layout_marginBottom">0dp</item>
+        <item name="android:layout_margin">0dp</item>
         <item name="android:padding">0dp</item>
     </style>
 
     <!--    the card properties and style-->
     <style name="BaseCardViewTopStyle" parent="@style/BaseCardViewStyle">
-        <item name="cardCornerRadius">22dp</item>
+        <item name="cardUseCompatPadding">false</item>
     </style>
 
     <!--    borderless button style-->
