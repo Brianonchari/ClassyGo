@@ -55,6 +55,7 @@ dependencies {
 
     //picasso for image loading
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
 
     /**Activity**/
     implementation "androidx.activity:activity-ktx:$activity"

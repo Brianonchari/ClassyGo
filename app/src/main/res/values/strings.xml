@@ -33,4 +33,7 @@
     <string name="splash_activity">Splash Activity!</string>
 
 
+    <string name="play_service_not_available">Play service not available on this device</string>
+
+
 </resources>

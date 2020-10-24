@@ -9,19 +9,22 @@ import com.classygo.app.R
 
 import com.google.firebase.auth.FirebaseAuth
 import com.classygo.app.setup.LoginActivity
+import com.classygo.app.trip.AllTripsActivity
 
 
 class SplashActivity : AppCompatActivity() {
     private val splashTime = 3000L
     private lateinit var mUser: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
+
         Handler(Looper.getMainLooper()).postDelayed({
             mUser = FirebaseAuth.getInstance()
             mUser.signOut()
             if (mUser.currentUser != null) {
-                val tripsIntent = Intent(this@SplashActivity, Class.forName("TripsActivity"))
+                val tripsIntent = Intent(this@SplashActivity, AllTripsActivity::class.java)
                 startActivity(tripsIntent)
                 finish()
             } else {
