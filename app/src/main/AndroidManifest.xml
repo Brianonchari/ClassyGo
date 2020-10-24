@@ -12,20 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".onboard.OnBoardActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".trip.NewTrip"></activity>
+        <activity android:name=".onboard.OnBoardActivity"/>
+        <activity android:name=".trip.NewTrip" />
         <activity android:name=".trip.AllTripsActivity" />
         <activity android:name=".recovery.ResetPasswordActivity" />
         <activity android:name=".setup.LoginActivity" />
         <activity android:name=".setup.SignUpActivity" />
         <activity android:name=".startup.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
