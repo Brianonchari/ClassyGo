@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.classygo.app.R
 import com.classygo.app.setup.LoginActivity
 import com.classygo.app.utils.EventObserver
+import com.classygo.app.utils.launchActivity
 import com.classygo.app.utils.validateEmail
 import kotlinx.android.synthetic.main.activity_reset_password.*
 
@@ -50,12 +51,7 @@ class ResetPasswordActivity : AppCompatActivity() {
         builder.setMessage(getString(R.string.reset_sent))
         builder.setPositiveButton(getString(R.string.back_to_login)) { dialogInterface, _ ->
             dialogInterface.dismiss()
-            Intent(this, LoginActivity::class.java).apply {
-                this.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or
-                        Intent.FLAG_ACTIVITY_CLEAR_TASK or
-                        Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(this)
-            }
+            launchActivity<LoginActivity> { finish() }
         }
         builder.create().show()
     }

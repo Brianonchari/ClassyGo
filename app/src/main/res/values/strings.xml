@@ -31,6 +31,13 @@
     <string name="sign_up">Sign Up</string>
     <string name="create_account">Create Account</string>
     <string name="splash_activity">Splash Activity!</string>
+    <string name="your_safety_our_concern">Your safety is our top most concern, ride with us</string>
+    <string name="ride_with_us">Ride Safely</string>
+    <string name="pay_faster">Pay faster and cashless</string>
+    <string name="pay_faster_body">Secured and simple payment for your trips</string>
+    <string name="journey_made_easy">Easily get to anywhere</string>
+    <string name="journey_made_easy_body">Find your ride from the comfort of your phone</string>
+    <string name="newly_install">CleanInstallation</string>
 
 
     <string name="play_service_not_available">Play service not available on this device</string>
