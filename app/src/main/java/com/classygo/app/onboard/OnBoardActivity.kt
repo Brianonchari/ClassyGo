@@ -1,7 +1,11 @@
 package com.classygo.app.onboard
 
 import android.os.Bundle
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.classygo.app.R
 import com.classygo.app.setup.LoginActivity
 import com.classygo.app.utils.launchActivity
@@ -50,6 +54,19 @@ class OnBoardActivity : AppCompatActivity() {
                 getString(R.string.your_safety_our_concern), R.drawable.ic_security_on
             )
         )
+
+        val classyGoEffect = SpannableString(tvHeader.text.toString()).apply {
+            setSpan(
+                ForegroundColorSpan(
+                    ContextCompat.getColor(
+                        this@OnBoardActivity,
+                        R.color.colorBlack
+                    )
+                ),
+                6, 8, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+            )
+        }
+        tvHeader.text = classyGoEffect
 
         sliderAdapter = OnBoardAdapter(sliderList)
         vpSlidePager.adapter = sliderAdapter
