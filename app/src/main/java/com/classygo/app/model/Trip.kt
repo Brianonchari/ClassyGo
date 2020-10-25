@@ -7,10 +7,11 @@ data class Trip(
     var id: String? = "",
     val route: TripLocation? = null,
     val author: String? = "",
-    val image: String? = "",
-    val eta: String? = "",
+    val busImage: String? = "",
     val startDateAndTime: Date? = null,
-    val endDateAndTime: Date? = null
+    val endDateAndTime: Date? = null,
+    val numberOfPaxAllowed: Int? = null,
+    val numberOfPax: Int? = null
 )
 
 //MARK: holding the location information on a trip
