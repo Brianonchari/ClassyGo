@@ -11,7 +11,7 @@
         <item name="android:textColor">@color/colorLightDark</item>
         <item name="android:textColorSecondary">@color/colorLightDark</item>
         <item name="android:textColorTertiary">@color/colorLightDark</item>
-        <item name="colorControlNormal">@color/colorLightDark</item>
+        <item name="colorControlNormal">@color/colorWhite</item>
         <item name="actionMenuTextColor">@color/colorLightDark</item>
         <item name="colorControlActivated">@color/colorLightDarkHint</item>
         <item name="colorControlHighlight">@color/colorLightDarkHint</item>

@@ -42,6 +42,8 @@
 
     <string name="play_service_not_available">Play service not available on this device</string>
     <string name="image_upload_failed">Failed to upload image, try again</string>
+    <string name="title_new_trip">NEW TRIP</string>
+    <string name="title_profile">PROFILE</string>
 
 
 </resources>

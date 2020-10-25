@@ -9,7 +9,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorRed">#DC0303</color>
     <color name="colorBackground">#FFFFFF</color>
-    <color name="transparentBlue">#AA0000FF</color>
+    <color name="transparentBlue">#0375FF</color>
     <color name="colorUnSelectedTab">#AFADAD</color>
     <color name="colorSelectedTab">#0375FF</color>
 </resources>

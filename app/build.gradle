@@ -74,6 +74,8 @@ dependencies {
     /**Activity Contract**/
     implementation 'androidx.activity:activity-ktx:1.2.0-beta01'
     implementation 'androidx.fragment:fragment-ktx:1.3.0-beta01'
+    /**Circle ImageView**/
+    implementation "de.hdodenhof:circleimageview:3.0.0"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutines"

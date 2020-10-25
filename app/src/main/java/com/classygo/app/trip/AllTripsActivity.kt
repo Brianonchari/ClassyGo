@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.classygo.app.R
 import com.classygo.app.model.Trip
 import com.classygo.app.model.TripLocation
+import com.classygo.app.settings.ProfileActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_all_trips.*
+import kotlinx.android.synthetic.main.home_toolbar.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -33,6 +35,11 @@ class AllTripsActivity : AppCompatActivity() {
         supportActionBar?.title = ""
 
         setUpRecyclerView()
+
+
+        imageViewIcon.setOnClickListener {
+            startActivity(Intent(this, ProfileActivity::class.java))
+        }
 
         fabNewTrip.setOnClickListener {
             startActivity(Intent(this, NewTrip::class.java))
