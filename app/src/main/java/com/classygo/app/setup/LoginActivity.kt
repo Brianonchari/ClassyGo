@@ -16,7 +16,7 @@ import kotlinx.coroutines.withContext
 import java.lang.Exception
 
 class LoginActivity : AppCompatActivity() {
-    lateinit var mAuth: FirebaseAuth
+    private lateinit var mAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
