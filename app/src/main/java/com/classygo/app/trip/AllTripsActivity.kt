@@ -1,16 +1,18 @@
 package com.classygo.app.trip
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.classygo.app.R
 import com.classygo.app.model.Trip
 import com.classygo.app.model.TripLocation
+import com.classygo.app.settings.NotificationActivity
 import com.classygo.app.settings.ProfileActivity
+import com.classygo.app.utils.launchActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_all_trips.*
 import kotlinx.android.synthetic.main.home_toolbar.*
@@ -38,11 +40,11 @@ class AllTripsActivity : AppCompatActivity() {
 
 
         imageViewIcon.setOnClickListener {
-            startActivity(Intent(this, ProfileActivity::class.java))
+            launchActivity<ProfileActivity>()
         }
 
         fabNewTrip.setOnClickListener {
-            startActivity(Intent(this, NewTripActivity::class.java))
+            launchActivity<NewTripActivity>()
         }
 
         getAllTrips()
@@ -95,5 +97,13 @@ class AllTripsActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.home_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.actionNotification) {
+            launchActivity<NotificationActivity>()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

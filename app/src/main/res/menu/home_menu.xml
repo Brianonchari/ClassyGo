@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/actionNotification"
         android:icon="@drawable/ic_notifications"
         app:showAsAction="always"
-        android:title="Notification" />
+        android:title="@string/menu_notification" />
+
 </menu>

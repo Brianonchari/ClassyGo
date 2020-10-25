@@ -31,12 +31,12 @@
         android:id="@+id/fabNewTrip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_add_circle_outline"
         android:tint="@color/colorWhite"
         app:fabSize="normal"
         app:layout_constraintBottom_toTopOf="@+id/materialCardViewSearch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_add_circle_outline" />
 
 
     <com.google.android.material.card.MaterialCardView

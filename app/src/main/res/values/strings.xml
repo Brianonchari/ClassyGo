@@ -44,6 +44,8 @@
     <string name="image_upload_failed">Failed to upload image, try again</string>
     <string name="title_new_trip">NEW TRIP</string>
     <string name="title_profile">PROFILE</string>
+    <string name="title_notification">NOTIFICATIONS</string>
+    <string name="menu_notification">Notification</string>
 
 
 </resources>
