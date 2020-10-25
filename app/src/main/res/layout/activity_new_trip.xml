@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".trip.NewTrip">
+    tools:context=".trip.NewTripActivity">
 
     <include
         android:id="@+id/toolbar"

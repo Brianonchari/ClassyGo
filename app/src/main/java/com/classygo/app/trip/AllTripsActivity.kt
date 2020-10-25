@@ -42,7 +42,7 @@ class AllTripsActivity : AppCompatActivity() {
         }
 
         fabNewTrip.setOnClickListener {
-            startActivity(Intent(this, NewTrip::class.java))
+            startActivity(Intent(this, NewTripActivity::class.java))
         }
 
         getAllTrips()

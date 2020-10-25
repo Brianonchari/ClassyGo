@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".settings.ProfileActivity"/>
         <activity android:name=".onboard.OnBoardActivity" />
-        <activity android:name=".trip.NewTrip" />
+        <activity android:name=".trip.NewTripActivity" />
         <activity android:name=".trip.AllTripsActivity" />
         <activity android:name=".recovery.ResetPasswordActivity" />
         <activity android:name=".setup.LoginActivity" />

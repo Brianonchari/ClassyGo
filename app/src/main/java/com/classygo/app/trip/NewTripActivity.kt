@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.activity_new_trip.*
 import java.util.*
 
 
-class NewTrip : AppCompatActivity() {
+class NewTripActivity : AppCompatActivity() {
     private var startPlace: Place? = null
     private var endPlace: Place? = null
     private var filePath: Uri? = null
