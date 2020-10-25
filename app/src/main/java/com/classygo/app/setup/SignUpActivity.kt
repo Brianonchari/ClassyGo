@@ -33,9 +33,13 @@ class SignUpActivity : AppCompatActivity() {
             if(driver_checkbox.isChecked){
                 val profile = Profile(firstName, lastName, emailAddress, isDriver)
                 saveProfile(profile)
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
             }else{
                 val profile = Profile(firstName, lastName, emailAddress, !isDriver)
                 saveProfile(profile)
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
             }
             registerUser()
         }
