@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.classygo.app.R
 import com.classygo.app.model.Profile
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -18,7 +17,7 @@ import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class SignUpActivity : AppCompatActivity() {
-    lateinit var mAuth: FirebaseAuth
+    private lateinit var mAuth: FirebaseAuth
     private val profileCollectionRef = Firebase.firestore.collection("profile")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
