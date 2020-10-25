@@ -141,7 +141,10 @@ class NewTripActivity : AppCompatActivity() {
         progressBar.visibility = View.VISIBLE
         fireStore.collection("trips")
             .add(trip)
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot successfully written!")
+                BottomSuccessPage.newInstance().show(supportFragmentManager, "")
+            }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
             .addOnCompleteListener {
                 mbPostTrip.isEnabled = true
