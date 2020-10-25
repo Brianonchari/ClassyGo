@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import khronos.toString
 import kotlinx.android.synthetic.main.activity_new_trip.*
 import java.util.*
 
@@ -128,18 +130,20 @@ class NewTrip : AppCompatActivity() {
             tripLocation,
             auth.currentUser?.uid,
             fileUrl,
-            Date(),
-            Date(),
+            Date(date.timeInMillis),
+            null,
             numberOfPaxAllowed.toInt(),
             0
         )
         mbPostTrip.isEnabled = false
+        progressBar.visibility = View.VISIBLE
         fireStore.collection("trips")
             .add(trip)
             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
             .addOnCompleteListener {
                 mbPostTrip.isEnabled = true
+                progressBar.visibility = View.INVISIBLE
             }
 
     }
@@ -156,11 +160,13 @@ class NewTrip : AppCompatActivity() {
     private fun uploadImage() {
         filePath?.let {
             mbPostTrip.isEnabled = false
+            progressBar.visibility = View.VISIBLE
             // Defining the child of storageReference
             val ref = storageReference?.child("images/" + UUID.randomUUID().toString())
             ref?.putFile(it)?.addOnSuccessListener { fileUploaded ->
                 fileUrl = fileUploaded.uploadSessionUri?.path.toString()
                 mbPostTrip.isEnabled = true
+                progressBar.visibility = View.INVISIBLE
             }?.addOnFailureListener { e ->
                 mbPostTrip.isEnabled = true
                 Toast.makeText(this, getString(R.string.image_upload_failed), Toast.LENGTH_SHORT)
@@ -213,7 +219,7 @@ class NewTrip : AppCompatActivity() {
                     { view, hourOfDay, minute ->
                         date.set(Calendar.HOUR_OF_DAY, hourOfDay)
                         date.set(Calendar.MINUTE, minute)
-                        Log.v(TAG, "The choosen one " + date.time)
+                        tieDateOfDeparture.setText(Date(date.timeInMillis).toString("dd/MM/yyyy',' hh:mm:ss a"))
                     }, currentDate[Calendar.HOUR_OF_DAY], currentDate[Calendar.MINUTE], false
                 ).show()
             }, currentDate[Calendar.YEAR], currentDate[Calendar.MONTH], currentDate[Calendar.DATE]
