@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.classygo.app.R
+import com.classygo.app.trip.AllTripsActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.CoroutineScope
@@ -45,7 +46,7 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }catch (ex: Exception){
                     withContext(Dispatchers.Main){
-                        Toast.makeText(this@LoginActivity, ex.message  , Toast.LENGTH_SHORT).show()
+                         Toast.makeText(this@LoginActivity, ex.message  , Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -56,7 +57,8 @@ class LoginActivity : AppCompatActivity() {
         if(mAuth.currentUser==null){
             Toast.makeText(this, "You are not logged in", Toast.LENGTH_SHORT).show()
         }else{
-            Toast.makeText(this, "You are logged in", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, AllTripsActivity::class.java))
+            finish()
         }
     }
 
