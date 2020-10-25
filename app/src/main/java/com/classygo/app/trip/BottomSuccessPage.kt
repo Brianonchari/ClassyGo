@@ -9,12 +9,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.classygo.app.R
+import com.classygo.app.model.Trip
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import khronos.toString
+import kotlinx.android.synthetic.main.bottom_sheet_trip_created.*
 
 
 class BottomSuccessPage : RoundedBottomSheetDialogFragment() {
+    private var trip: Trip? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -26,14 +31,22 @@ class BottomSuccessPage : RoundedBottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        trip?.let {
+            textViewLocations.text = "${it.route?.startLocationName}\n${it.route?.endLocationName}"
+            textViewDateTime.text = it.startDateAndTime?.toString("dd/MM/yyyy',' hh:mm:ss a")
 
+           // imageViewCode.setImageBitmap()
+        }
 
+        mbTripDone.setOnClickListener {
+            dismiss()
+        }
     }
 
     companion object {
-        fun newInstance() =
+        fun newInstance(trip: Trip) =
             BottomSuccessPage().apply {
-
+                this.trip = trip
             }
     }
 

@@ -114,6 +114,7 @@ class NewTripActivity : AppCompatActivity() {
     //MARK: save the trip t the database
     private fun saveTrip() {
         if (startPlace == null || endPlace == null) {
+            Toast.makeText(this, "Provide a start and an end location", Toast.LENGTH_SHORT).show()
             return
         }
         val numberOfPaxAllowed = tieTripNumberOfPax.text?.trim().toString()
@@ -143,7 +144,7 @@ class NewTripActivity : AppCompatActivity() {
             .add(trip)
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot successfully written!")
-                BottomSuccessPage.newInstance().show(supportFragmentManager, "")
+                BottomSuccessPage.newInstance(trip).show(supportFragmentManager, "")
             }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
             .addOnCompleteListener {

@@ -22,7 +22,7 @@ import kotlin.collections.ArrayList
 class AllTripsActivity : AppCompatActivity() {
 
     private val feedItems = ArrayList<Trip>()
-    private var baseAdapter: TripFeedAdapter? = null
+    private var baseAdapter: FeedAdapter? = null
     var firebaseFirestore = FirebaseFirestore.getInstance()
 
     companion object {
@@ -65,7 +65,7 @@ class AllTripsActivity : AppCompatActivity() {
 
     //MARK: set the recycler view layouts
     private fun setUpRecyclerView() {
-        baseAdapter = TripFeedAdapter(feedItems)
+        baseAdapter = FeedAdapter(feedItems)
         recyclerView.setHasFixedSize(true)
         recyclerView.isNestedScrollingEnabled = true
         val linearLayoutManager = LinearLayoutManager(this)

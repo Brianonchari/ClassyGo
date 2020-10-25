@@ -7,18 +7,21 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.classygo.app.R
+import com.classygo.app.model.NotificationItem
 import com.classygo.app.model.Trip
 import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
+import khronos.toString
 
 
 /**
  * Created by Monarchy on 17/10/2020.
  */
 
-class TripFeedAdapter(private var items: List<Trip>) :
+class FeedAdapter(private var items: List<Any>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val constant = 100
+    private val notificationConstant = 200
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var viewHolder: RecyclerView.ViewHolder? = null
@@ -28,6 +31,11 @@ class TripFeedAdapter(private var items: List<Trip>) :
                 val viewHolderItem = inflater.inflate(R.layout.trip_card_item, viewGroup, false)
                 viewHolder = TripViewHolder(viewHolderItem)
             }
+            notificationConstant -> {
+                val viewHolderItem =
+                    inflater.inflate(R.layout.notification_card_item, viewGroup, false)
+                viewHolder = NotificationViewHolder(viewHolderItem)
+            }
         }
         return viewHolder!!
     }
@@ -35,8 +43,13 @@ class TripFeedAdapter(private var items: List<Trip>) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
             constant -> {
-                val viewHolderMallBanner = holder as TripViewHolder
-                configureTripViewHolder(viewHolderMallBanner, items[position])
+                configureTripViewHolder(holder as TripViewHolder, items[position] as Trip)
+            }
+            notificationConstant -> {
+                configureNotificationViewHolder(
+                    holder as NotificationViewHolder,
+                    items[position] as NotificationItem
+                )
             }
         }
     }
@@ -48,23 +61,38 @@ class TripFeedAdapter(private var items: List<Trip>) :
     override fun getItemViewType(position: Int): Int {
         return when {
             items[position] is Trip -> constant
+            items[position] is NotificationItem -> notificationConstant
             else -> -1
         }
     }
 
-    // MARK: configure the device
+    // MARK: configure the trip
     private fun configureTripViewHolder(
         viewHolder: TripViewHolder,
         data: Trip
     ) {
         val parent = viewHolder.itemView
         val imageViewTrip = viewHolder.imageViewTrip
-
+        val textViewTitle = viewHolder.textViewTitle
+        val textViewEtaInfo = viewHolder.textViewEtaInfo
+        textViewTitle?.text = "${data.route?.startLocationName} - ${data.route?.endLocationName}"
+        textViewEtaInfo?.text = data.startDateAndTime?.toString("dd/MM/yyyy',' hh:mm:ss a")
         data.busImage?.let {
             if (it.isNotEmpty()) {
                 Picasso.get().load(data.busImage).into(imageViewTrip)
             }
         }
+    }
+
+    // MARK: configure the notification
+    private fun configureNotificationViewHolder(
+        viewHolder: NotificationViewHolder,
+        data: NotificationItem
+    ) {
+        val textViewTitle = viewHolder.textViewTitle
+        val textViewMessage = viewHolder.textViewMessage
+        textViewTitle?.text = data.title
+        textViewMessage?.text = data.date?.toString("dd/MM/yyyy',' hh:mm:ss a")
     }
 }
 
@@ -82,3 +110,15 @@ class TripViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         buttonJoinTrip = itemView.findViewById(R.id.buttonJoinTrip)
     }
 }
+
+//MARK: view holder of the notification
+class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    var textViewTitle: TextView? = null
+    var textViewMessage: TextView? = null
+
+    init {
+        textViewTitle = itemView.findViewById(R.id.textViewTitle)
+        textViewMessage = itemView.findViewById(R.id.textViewMessage)
+    }
+}
+
