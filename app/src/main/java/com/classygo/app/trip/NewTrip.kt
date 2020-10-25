@@ -1,7 +1,10 @@
 package com.classygo.app.trip
 
 import android.app.Activity
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +12,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.classygo.app.R
 import com.classygo.app.model.Trip
 import com.classygo.app.model.TripLocation
@@ -27,6 +31,7 @@ class NewTrip : AppCompatActivity() {
     private var endPlace: Place? = null
     private var filePath: Uri? = null
     private var fileUrl: String = ""
+    private var date = Calendar.getInstance()
 
     companion object {
         private const val TAG = "TRIP"
@@ -56,24 +61,51 @@ class NewTrip : AppCompatActivity() {
         }
         //MARK: date of departure picker
         tilDateOfDeparture.setEndIconOnClickListener {
-
+            showDateTimePicker()
         }
         //MARK: date of departure
         tieDateOfDeparture.setOnClickListener {
-
+            showDateTimePicker()
         }
-
+        //MARK: allow to pick image
         imageViewTrip.setOnClickListener {
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.action = Intent.ACTION_GET_CONTENT
-            openImagePickerActivity.launch(intent)
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+                    this,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+                ) != PackageManager.PERMISSION_GRANTED
+
+            ) {
+                requestStoragePermission()
+
+            } else {
+                val intent = Intent(Intent.ACTION_PICK)
+                intent.type = "image/*"
+                val mimeTypes = arrayOf("image/jpeg", "image/png")
+                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
+                openImagePickerActivity.launch(intent)
+            }
         }
 
         mbPostTrip.setOnClickListener {
             saveTrip()
         }
+        //MARK: ask permission
+        requestStoragePermission()
     }
+
+    private fun requestStoragePermission() {
+        //MARK: ask permission
+        requestMultiplePermissions.launch(
+            arrayOf(
+                android.Manifest.permission.READ_EXTERNAL_STORAGE,
+                android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        )
+    }
+
 
     //MARK: save the trip t the database
     private fun saveTrip() {
@@ -141,6 +173,7 @@ class NewTrip : AppCompatActivity() {
         }
     }
 
+    //MARK: handle start location things
     private val openStartLocationActivity =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -149,6 +182,7 @@ class NewTrip : AppCompatActivity() {
             }
         }
 
+    //MARK: handle end location things
     private val openEndLocationActivity =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
@@ -157,10 +191,32 @@ class NewTrip : AppCompatActivity() {
             }
         }
 
+    //MARK: handle image picker
     private val openImagePickerActivity =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
-                val imageFile = result.data
+                filePath = result.data?.data
+                imageViewTrip.setImageURI(filePath)
+                uploadImage()
             }
         }
+
+    //MARK: present the data picker
+    private fun showDateTimePicker() {
+        val currentDate = Calendar.getInstance()
+        DatePickerDialog(
+            this,
+            { view, year, monthOfYear, dayOfMonth ->
+                date.set(year, monthOfYear, dayOfMonth)
+                TimePickerDialog(
+                    this,
+                    { view, hourOfDay, minute ->
+                        date.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                        date.set(Calendar.MINUTE, minute)
+                        Log.v(TAG, "The choosen one " + date.time)
+                    }, currentDate[Calendar.HOUR_OF_DAY], currentDate[Calendar.MINUTE], false
+                ).show()
+            }, currentDate[Calendar.YEAR], currentDate[Calendar.MONTH], currentDate[Calendar.DATE]
+        ).show()
+    }
 }
