@@ -1,15 +1,21 @@
 package com.classygo.app.trip
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.classygo.app.R
 import com.classygo.app.model.Trip
 import com.classygo.app.model.TripLocation
+import com.classygo.app.settings.NotificationActivity
+import com.classygo.app.settings.ProfileActivity
+import com.classygo.app.utils.launchActivity
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_all_trips.*
+import kotlinx.android.synthetic.main.home_toolbar.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -17,7 +23,11 @@ class AllTripsActivity : AppCompatActivity() {
 
     private val feedItems = ArrayList<Trip>()
     private var baseAdapter: TripFeedAdapter? = null
+    var firebaseFirestore = FirebaseFirestore.getInstance()
 
+    companion object {
+        private const val TAG = "ALL"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +38,30 @@ class AllTripsActivity : AppCompatActivity() {
 
         setUpRecyclerView()
 
-        fabNewTrip.setOnClickListener {
-            startActivity(Intent(this, NewTrip::class.java))
+
+        imageViewIcon.setOnClickListener {
+            launchActivity<ProfileActivity>()
         }
+
+        fabNewTrip.setOnClickListener {
+            launchActivity<NewTripActivity>()
+        }
+
+        getAllTrips()
     }
 
+    private fun getAllTrips() {
+        firebaseFirestore.collection("trips")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }
+    }
 
     //MARK: set the recycler view layouts
     private fun setUpRecyclerView() {
@@ -54,7 +83,6 @@ class AllTripsActivity : AppCompatActivity() {
             route,
             "",
             "https://li1.modland.net/euro-truck-simulator-2/cars-bus/ets2_20200318_104918_00_ModLandNet.png",
-            "12 Hours",
             Date(),
             Date()
         )
@@ -69,5 +97,13 @@ class AllTripsActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.home_menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.actionNotification) {
+            launchActivity<NotificationActivity>()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

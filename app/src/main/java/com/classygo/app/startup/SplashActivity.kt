@@ -9,15 +9,16 @@ import com.classygo.app.onboard.OnBoardActivity
 import com.classygo.app.onboard.OnBoardingManager
 import com.classygo.app.setup.LoginActivity
 import com.classygo.app.trip.AllTripsActivity
+
 import com.classygo.app.utils.InjectorUtils
 import com.classygo.app.utils.launchActivity
 import com.google.firebase.auth.FirebaseAuth
+
 
 class SplashActivity : AppCompatActivity() {
     private val splashTime = 3000L
     private lateinit var mUser: FirebaseAuth
     private val sharedPreferences by lazy { InjectorUtils.provideSharedPreference(this) }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

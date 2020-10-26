@@ -1,6 +1,5 @@
 package com.classygo.app.trip
 
-import android.app.Activity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,9 +60,9 @@ class TripFeedAdapter(private var items: List<Trip>) :
         val parent = viewHolder.itemView
         val imageViewTrip = viewHolder.imageViewTrip
 
-        data.image?.let {
+        data.busImage?.let {
             if (it.isNotEmpty()) {
-                Picasso.get().load(data.image).into(imageViewTrip)
+                Picasso.get().load(data.busImage).into(imageViewTrip)
             }
         }
     }
