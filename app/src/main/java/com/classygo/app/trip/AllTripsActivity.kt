@@ -38,7 +38,6 @@ class AllTripsActivity : AppCompatActivity() {
 
         setUpRecyclerView()
 
-
         imageViewIcon.setOnClickListener {
             launchActivity<ProfileActivity>()
         }
@@ -54,12 +53,23 @@ class AllTripsActivity : AppCompatActivity() {
         firebaseFirestore.collection("trips")
             .get()
             .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d(TAG, "${document.id} => ${document.data}")
+                result.forEach {
+                    val data = it.data
+                    val route = TripLocation()
+                    val trip = Trip(
+                        it.id,
+                        route,
+                        "",
+                        "https://li1.modland.net/euro-truck-simulator-2/cars-bus/ets2_20200318_104918_00_ModLandNet.png",
+                        Date(),
+                        Date()
+                    )
+                    feedItems.add(trip)
                 }
+                baseAdapter?.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents.", exception)
+                Log.e(TAG, "Error getting documents.", exception)
             }
     }
 
@@ -72,27 +82,8 @@ class AllTripsActivity : AppCompatActivity() {
         linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
         recyclerView.layoutManager = linearLayoutManager
         recyclerView.adapter = baseAdapter
-
-        addDummyData()
     }
 
-    private fun addDummyData() {
-        val route = TripLocation()
-        val trip = Trip(
-            "",
-            route,
-            "",
-            "https://li1.modland.net/euro-truck-simulator-2/cars-bus/ets2_20200318_104918_00_ModLandNet.png",
-            Date(),
-            Date()
-        )
-
-        feedItems.add(trip)
-        feedItems.add(trip)
-        feedItems.add(trip)
-
-        baseAdapter?.notifyDataSetChanged()
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.home_menu, menu)

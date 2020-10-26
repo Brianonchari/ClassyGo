@@ -32,7 +32,6 @@ class SplashActivity : AppCompatActivity() {
                 finish()
             } else {
                 mUser = FirebaseAuth.getInstance()
-                mUser.signOut()
                 if (mUser.currentUser != null) {
                     launchActivity<AllTripsActivity>()
                     finish()

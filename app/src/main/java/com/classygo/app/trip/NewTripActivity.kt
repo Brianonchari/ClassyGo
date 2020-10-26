@@ -175,12 +175,14 @@ class NewTripActivity : AppCompatActivity() {
                 progressBar.visibility = View.INVISIBLE
             }?.addOnFailureListener { e ->
                 mbPostTrip.isEnabled = true
+                progressBar.visibility = View.INVISIBLE
+                Log.e("ERROR", e.message.toString())
                 Toast.makeText(this, getString(R.string.image_upload_failed), Toast.LENGTH_SHORT)
                     .show()
             }?.addOnProgressListener { taskSnapshot ->
                 // percentage on the dialog box
                 val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount)
-
+                Log.e("PROGRESS", progress.toString())
             }
         }
     }
