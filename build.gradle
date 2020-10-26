@@ -4,7 +4,8 @@ buildscript {
 
     ext {
         activity = '1.1.0'
-        coroutines = '1.3.5'
+        coroutines = '1.3.7'
+        coroutines_play_services = "1.3.7"
     }
 
     repositories {
