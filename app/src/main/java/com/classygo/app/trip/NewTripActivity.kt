@@ -117,6 +117,11 @@ class NewTripActivity : AppCompatActivity() {
             Toast.makeText(this, "Provide a start and an end location", Toast.LENGTH_SHORT).show()
             return
         }
+        if (fileUrl.isEmpty()) {
+            Toast.makeText(this, "Provide an image of your bus and proceed", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
         val numberOfPaxAllowed = tieTripNumberOfPax.text?.trim().toString()
         val tripLocation = TripLocation(
             startPlace!!.name.toString(),
@@ -170,13 +175,13 @@ class NewTripActivity : AppCompatActivity() {
             // Defining the child of storageReference
             val ref = storageReference?.child("images/" + UUID.randomUUID().toString())
             ref?.putFile(it)?.addOnSuccessListener { fileUploaded ->
-                fileUrl = fileUploaded.uploadSessionUri?.path.toString()
+                fileUrl = ref.downloadUrl.toString()
+                Log.e("URL", fileUrl)
                 mbPostTrip.isEnabled = true
                 progressBar.visibility = View.INVISIBLE
             }?.addOnFailureListener { e ->
                 mbPostTrip.isEnabled = true
                 progressBar.visibility = View.INVISIBLE
-                Log.e("ERROR", e.message.toString())
                 Toast.makeText(this, getString(R.string.image_upload_failed), Toast.LENGTH_SHORT)
                     .show()
             }?.addOnProgressListener { taskSnapshot ->
@@ -192,6 +197,7 @@ class NewTripActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 startPlace = PlacePicker.getPlace(this, result.data)
+                Log.e("LOC", startPlace.toString())
                 tieTripStartLocation.setText(startPlace?.name)
             }
         }

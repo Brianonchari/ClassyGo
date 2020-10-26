@@ -60,7 +60,7 @@ class AllTripsActivity : AppCompatActivity() {
                         it.id,
                         route,
                         "",
-                        "https://li1.modland.net/euro-truck-simulator-2/cars-bus/ets2_20200318_104918_00_ModLandNet.png",
+                        data["busImage"].toString(),
                         Date(),
                         Date()
                     )

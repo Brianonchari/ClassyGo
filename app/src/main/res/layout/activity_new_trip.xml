@@ -102,6 +102,7 @@
                     android:id="@+id/tieTripStartLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:focusable="false"
                     android:fontFamily="@font/roboto_thin"
                     android:hint="Trip start location"
                     android:inputType="textAutoComplete"
@@ -130,6 +131,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_thin"
                     android:hint="End start location"
+                    android:focusable="false"
                     android:inputType="textAutoComplete"
                     android:textColor="@color/colorBlack"
                     android:textColorHint="@color/colorLightDark" />
