@@ -23,7 +23,7 @@ class AllTripsActivity : AppCompatActivity() {
 
     private val feedItems = ArrayList<Trip>()
     private var baseAdapter: FeedAdapter? = null
-    var firebaseFirestore = FirebaseFirestore.getInstance()
+    private var firebaseFirestore = FirebaseFirestore.getInstance()
 
     companion object {
         private const val TAG = "ALL"
