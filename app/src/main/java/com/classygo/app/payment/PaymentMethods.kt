@@ -2,6 +2,7 @@ package com.classygo.app.payment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import com.classygo.app.R
 import kotlinx.android.synthetic.main.activity_payment_methods.*
@@ -17,5 +18,13 @@ class PaymentMethods : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
         textViewTitle.text = getString(R.string.title_payment_methods)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import com.classygo.app.R
+import com.classygo.app.payment.PaymentMethods
 import com.classygo.app.utils.launchActivity
 import kotlinx.android.synthetic.main.activity_new_trip.toolbar
 import kotlinx.android.synthetic.main.activity_profile.*
@@ -25,7 +26,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         cardViewPaymentMethods.setOnClickListener {
-
+            launchActivity<PaymentMethods> { }
         }
 
         cardViewSecurity.setOnClickListener {
@@ -39,7 +40,6 @@ class ProfileActivity : AppCompatActivity() {
         circleImageViewProfile.setOnClickListener {
 
         }
-
 
     }
 
