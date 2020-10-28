@@ -48,6 +48,7 @@
     <string name="menu_notification">Notification</string>
     <string name="map_key">AIzaSyDr6tESJ1alk31KCDJKaQlL-6Gf2R0EEDM</string>
     <string name="title_edit_profile">EDIT PROFILE</string>
+    <string name="title_payment_methods">PAYMENT METHODS</string>
 
 
 </resources>

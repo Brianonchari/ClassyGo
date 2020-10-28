@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,13 +48,31 @@ class AllTripsActivity : AppCompatActivity() {
             launchActivity<NewTripActivity>()
         }
 
+        // MARK: search section
+        tilSearch.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val content = tilSearch.text.toString().trim()
+                handleSearch(content)
+                true
+            } else false
+        }
+
         getAllTrips()
     }
 
+    //MARK: handle search
+    private fun handleSearch(keyWord: String) {
+        if (keyWord.isNotEmpty()) {
+            progressBar.visibility = View.VISIBLE
+        }
+    }
+
     private fun getAllTrips() {
+        progressBar.visibility = View.VISIBLE
         firebaseFirestore.collection("trips")
             .get()
             .addOnSuccessListener { result ->
+                progressBar.visibility = View.INVISIBLE
                 result.forEach {
                     val data = it.data
                     val route = TripLocation()
@@ -69,6 +89,7 @@ class AllTripsActivity : AppCompatActivity() {
                 baseAdapter?.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
+                progressBar.visibility = View.INVISIBLE
                 Log.e(TAG, "Error getting documents.", exception)
             }
     }

@@ -5,7 +5,10 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import com.classygo.app.R
-import kotlinx.android.synthetic.main.activity_new_trip.*
+import com.classygo.app.utils.launchActivity
+import kotlinx.android.synthetic.main.activity_new_trip.toolbar
+import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,10 +20,29 @@ class ProfileActivity : AppCompatActivity() {
         supportActionBar?.title = ""
         textViewTitle.text = getString(R.string.title_profile)
 
+        cardViewNotification.setOnClickListener {
+            launchActivity<NotificationActivity> { }
+        }
 
+        cardViewPaymentMethods.setOnClickListener {
+
+        }
+
+        cardViewSecurity.setOnClickListener {
+
+        }
+
+        cardViewProfile.setOnClickListener {
+
+        }
+
+        circleImageViewProfile.setOnClickListener {
+
+        }
 
 
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {

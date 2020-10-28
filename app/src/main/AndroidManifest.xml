@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".settings.EditProfile"></activity>
+        <activity android:name=".payment.PaymentMethods"></activity>
+        <activity android:name=".settings.EditProfile" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

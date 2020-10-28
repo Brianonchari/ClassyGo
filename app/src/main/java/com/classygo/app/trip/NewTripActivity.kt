@@ -20,6 +20,7 @@ import com.classygo.app.model.Trip
 import com.classygo.app.model.TripLocation
 import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlacePicker
+import com.google.android.libraries.places.api.Places
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -54,11 +55,15 @@ class NewTripActivity : AppCompatActivity() {
         supportActionBar?.title = ""
         textViewTitle.text = getString(R.string.title_new_trip)
 
+        // Initialize Places.
+        Places.initialize(applicationContext, getString(R.string.map_key))
+
         //MARK: start start location picker
         tilStartLocation.setEndIconOnClickListener {
             openStartLocationActivity.launch(PlacePicker.IntentBuilder().build(this))
+            //val placesClient = Places.createClient(this)
+            //placesClient.findAutocompletePredictions(object )
         }
-
         //MARK: start end location picker
         tilEndLocation.setEndIconOnClickListener {
             openEndLocationActivity.launch(PlacePicker.IntentBuilder().build(this))
@@ -148,8 +153,7 @@ class NewTripActivity : AppCompatActivity() {
         fireStore.collection("trips")
             .add(trip)
             .addOnSuccessListener {
-                Log.d(TAG, "DocumentSnapshot successfully written!")
-                BottomSuccessPage.newInstance(trip).show(supportFragmentManager, "")
+                BottomSuccessPage.newInstance(trip).show(supportFragmentManager, TAG)
             }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
             .addOnCompleteListener {
