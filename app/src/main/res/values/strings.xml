@@ -47,6 +47,11 @@
     <string name="title_notification">NOTIFICATIONS</string>
     <string name="menu_notification">Notification</string>
     <string name="map_key">Notification</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
+    <string name="new_password_conf">Confirm new password</string>
+    <string name="update_password_btn">Update password</string>
+    <string name="logout_tv">Logout</string>
 
 
 </resources>
