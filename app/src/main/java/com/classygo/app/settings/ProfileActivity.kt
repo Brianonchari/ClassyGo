@@ -22,7 +22,7 @@ class ProfileActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
         textViewTitle.text = getString(R.string.title_profile)
-        changePassword()
+
 
         cardViewNotification.setOnClickListener {
             launchActivity<NotificationActivity> { }
@@ -54,14 +54,4 @@ class ProfileActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    private fun changePassword() {
-        cardViewSecurity.setOnClickListener {
-            launchActivity<ChangePasswordActivity>()
-            finish()
-        }
-
-    }
-
-
 }
