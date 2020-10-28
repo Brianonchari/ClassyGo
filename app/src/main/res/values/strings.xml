@@ -46,9 +46,18 @@
     <string name="title_profile">PROFILE</string>
     <string name="title_notification">NOTIFICATIONS</string>
     <string name="menu_notification">Notification</string>
+<<<<<<< HEAD
     <string name="map_key">AIzaSyDr6tESJ1alk31KCDJKaQlL-6Gf2R0EEDM</string>
     <string name="title_edit_profile">EDIT PROFILE</string>
     <string name="title_payment_methods">PAYMENT METHODS</string>
+=======
+    <string name="map_key">Notification</string>
+    <string name="current_password">Current password</string>
+    <string name="new_password">New password</string>
+    <string name="new_password_conf">Confirm new password</string>
+    <string name="update_password_btn">Update password</string>
+    <string name="logout_tv">Logout</string>
+>>>>>>> 3dc11fac332f86f424d20d7702b06007c93409b8
 
 
 </resources>

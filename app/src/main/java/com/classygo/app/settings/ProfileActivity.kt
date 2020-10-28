@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import com.classygo.app.R
+
 import com.classygo.app.payment.PaymentMethods
 import com.classygo.app.utils.launchActivity
 import kotlinx.android.synthetic.main.activity_new_trip.toolbar
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.toolbar.*
+
 
 class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +22,7 @@ class ProfileActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
         textViewTitle.text = getString(R.string.title_profile)
+        changePassword()
 
         cardViewNotification.setOnClickListener {
             launchActivity<NotificationActivity> { }
@@ -30,7 +33,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         cardViewSecurity.setOnClickListener {
-
+            launchActivity<ChangePasswordActivity> { }
         }
 
         cardViewProfile.setOnClickListener {
@@ -51,4 +54,14 @@ class ProfileActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    private fun changePassword() {
+        cardViewSecurity.setOnClickListener {
+            launchActivity<ChangePasswordActivity>()
+            finish()
+        }
+
+    }
+
+
 }
