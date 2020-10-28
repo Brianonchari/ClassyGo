@@ -10,15 +10,18 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.classygo.app.R
 import com.classygo.app.model.Trip
+import com.classygo.app.utils.DefaultCallback
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import khronos.toString
 import kotlinx.android.synthetic.main.bottom_sheet_trip_created.*
+import javax.security.auth.callback.CallbackHandler
 
 
 class BottomSuccessPage : RoundedBottomSheetDialogFragment() {
     private var trip: Trip? = null
+    private var callback: DefaultCallback? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,18 +38,20 @@ class BottomSuccessPage : RoundedBottomSheetDialogFragment() {
             textViewLocations.text = "${it.route?.startLocationName}\n${it.route?.endLocationName}"
             textViewDateTime.text = it.startDateAndTime?.toString("dd/MM/yyyy',' hh:mm:ss a")
 
-           // imageViewCode.setImageBitmap()
+            //imageViewCode.setImageBitmap()
         }
 
         mbTripDone.setOnClickListener {
+            callback?.onActionPerformed()
             dismiss()
         }
     }
 
     companion object {
-        fun newInstance(trip: Trip) =
+        fun newInstance(trip: Trip, callback: DefaultCallback) =
             BottomSuccessPage().apply {
                 this.trip = trip
+                this.callback = callback
             }
     }
 
