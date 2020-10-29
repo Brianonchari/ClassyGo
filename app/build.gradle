@@ -62,7 +62,7 @@ dependencies {
     implementation "androidx.activity:activity-ktx:$activity"
 
     /***Firebase Database*/
-    implementation 'com.google.firebase:firebase-database:19.5.0'
+    implementation 'com.google.firebase:firebase-database:19.5.1'
     /**Firebase Auth**/
     implementation 'com.google.firebase:firebase-auth:19.4.0'
     /**Firebase Storage**/
@@ -72,6 +72,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutines_play_services"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+
+    /**Scanner View**/
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
 
 }
 

@@ -11,6 +11,7 @@ import com.classygo.app.R
 import com.classygo.app.model.Trip
 import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.trip_card_item.view.*
 
 
 /**
@@ -20,6 +21,7 @@ import com.squareup.picasso.Picasso
 class TripFeedAdapter(private var items: List<Trip>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val constant = 100
+    private var onItemClickListener: ((Trip) -> Unit)? = null
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var viewHolder: RecyclerView.ViewHolder? = null
@@ -66,6 +68,16 @@ class TripFeedAdapter(private var items: List<Trip>) :
                 Picasso.get().load(data.image).into(imageViewTrip)
             }
         }
+
+        viewHolder.itemView.buttonJoinTrip.apply{
+            setOnClickListener {
+                onItemClickListener?.let{it(data)}
+            }
+        }
+    }
+
+    fun setOnItemClickListener(listener: (Trip) -> Unit) {
+        onItemClickListener = listener
     }
 }
 

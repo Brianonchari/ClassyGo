@@ -38,6 +38,10 @@
     <string name="journey_made_easy">Easily get to anywhere</string>
     <string name="journey_made_easy_body">Find your ride from the comfort of your phone</string>
     <string name="newly_install">CleanInstallation</string>
-
+    <string name="cheking_seat_availabiliyy_in_bus">Cheking seat availabiliyy in bus</string>
+    <string name="select_seat">SELECT SEAT</string>
+    <string name="mumbai_pune">Mumbai - Pune</string>
+    <string name="make_payment">Make Payment</string>
+    <string name="tap_on_green_seat_to_book">Tap on green seat to book</string>
 
 </resources>

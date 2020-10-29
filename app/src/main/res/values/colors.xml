@@ -12,4 +12,5 @@
     <color name="transparentBlue">#AA0000FF</color>
     <color name="colorUnSelectedTab">#AFADAD</color>
     <color name="colorSelectedTab">#0375FF</color>
+    <color name="colorProgressBar">#0375FF</color>
 </resources>

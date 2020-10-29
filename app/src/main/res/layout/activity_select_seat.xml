@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/roboto_regular"
+        android:text="@string/select_seat"
+        android:textColor="@color/colorWhite"
+        android:textSize="14sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/activity_bg_curved"
+        android:layout_marginTop="30dp">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/bus_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mumbai_pune"
+            android:fontFamily="@font/roboto_regular"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_below="@id/bus_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tap_on_green_seat_to_book"
+            android:layout_centerHorizontal="true"/>
+        <ScrollView
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/layoutSeat"
+            android:layout_below="@id/bus_name"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="@string/make_payment"
+            android:textColor="@color/colorWhite"
+            android:fontFamily="@font/roboto_regular"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/button_rounded_corner"
+            android:layout_marginBottom="30dp"/>
+    </RelativeLayout>
+
+</LinearLayout>

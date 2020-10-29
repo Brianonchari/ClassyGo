@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.classygo.app.R
 import com.classygo.app.model.Trip
 import com.classygo.app.model.TripLocation
+import com.classygo.app.utils.launchActivity
 import kotlinx.android.synthetic.main.activity_all_trips.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AllTripsActivity : AppCompatActivity() {
 
@@ -27,6 +27,9 @@ class AllTripsActivity : AppCompatActivity() {
         supportActionBar?.title = ""
 
         setUpRecyclerView()
+        baseAdapter?.setOnItemClickListener {
+            launchActivity<ScanAvailableSeatsActivity>()
+        }
 
         fabNewTrip.setOnClickListener {
             startActivity(Intent(this, NewTrip::class.java))
