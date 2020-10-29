@@ -5,12 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.classygo.app.R
+import kotlinx.android.synthetic.main.activity_select_seat.*
+import kotlinx.android.synthetic.main.activity_select_seat.toolbar
+import kotlinx.android.synthetic.main.toolbar.*
 import java.util.ArrayList
 
 class SelectSeatActivity : AppCompatActivity(), View.OnClickListener {
@@ -34,6 +39,12 @@ class SelectSeatActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_select_seat)
+
+        setSupportActionBar(toolbar as Toolbar?)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ""
+        textViewTitle.text = getString(R.string.select_seat)
+
 
         layout = findViewById(R.id.layoutSeat)
         seats = "/$seats"
@@ -136,5 +147,13 @@ class SelectSeatActivity : AppCompatActivity(), View.OnClickListener {
         } else if (view.getTag() as Int == STATUS_RESERVED) {
             Toast.makeText(this, "Seat " + view.getId() + " is Reserved", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
