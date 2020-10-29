@@ -11,6 +11,7 @@ import com.classygo.app.model.NotificationItem
 import com.classygo.app.model.PaymentMethodItem
 import com.classygo.app.trip.FeedAdapter
 import com.classygo.app.utils.DefaultCallback
+import com.classygo.app.utils.PaymentTypes
 import kotlinx.android.synthetic.main.activity_payment_methods.*
 import kotlinx.android.synthetic.main.activity_payment_methods.recyclerView
 import kotlinx.android.synthetic.main.activity_payment_methods.toolbar
@@ -48,10 +49,13 @@ class PaymentMethods : AppCompatActivity() {
     }
 
     private fun addDummyData() {
-        val item = PaymentMethodItem("34675", "QR Code", "QR", "QR- 23424")
-        val item2 = PaymentMethodItem("36336", "Visa CARD", "CARD", "VS - 78638")
-        val item3 = PaymentMethodItem("9847", "Master CARD", "", "MS - 77999")
-        val item4 = PaymentMethodItem("0900", "Amex CARD", "Amex", "AM - 8365")
+        val item = PaymentMethodItem("34675", "Access Bank", PaymentTypes.VISA.name, "QR- 23424")
+        val item2 =
+            PaymentMethodItem("36336", "United Bank Pay", PaymentTypes.VISA.name, "VS - 78638")
+        val item3 =
+            PaymentMethodItem("9847", "Global Bank", PaymentTypes.MASTER_CARD.name, "MS - 77999")
+        val item4 =
+            PaymentMethodItem("0900", "United Bank", PaymentTypes.AMEX_CARD.name, "AM - 8365")
         feedItems.add(item)
         feedItems.add(item2)
         feedItems.add(item3)
