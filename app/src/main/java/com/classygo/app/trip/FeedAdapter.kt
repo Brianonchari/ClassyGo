@@ -10,6 +10,7 @@ import com.classygo.app.R
 import com.classygo.app.model.NotificationItem
 import com.classygo.app.model.PaymentMethodItem
 import com.classygo.app.model.Trip
+import com.classygo.app.utils.DefaultCallback
 import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
@@ -20,7 +21,7 @@ import khronos.toString
  * Created by Monarchy on 17/10/2020.
  */
 
-class FeedAdapter(private var items: List<Any>) :
+class FeedAdapter(private var items: List<Any>, private var callback: DefaultCallback? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val constant = 100
     private val notificationConstant = 200
@@ -51,7 +52,11 @@ class FeedAdapter(private var items: List<Any>) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
             constant -> {
-                configureTripViewHolder(holder as TripViewHolder, items[position] as Trip)
+                configureTripViewHolder(
+                    holder as TripViewHolder,
+                    items[position] as Trip,
+                    callback = callback
+                )
             }
             notificationConstant -> {
                 configureNotificationViewHolder(
@@ -84,17 +89,22 @@ class FeedAdapter(private var items: List<Any>) :
     // MARK: configure the trip
     private fun configureTripViewHolder(
         viewHolder: TripViewHolder,
-        data: Trip
+        data: Trip, callback: DefaultCallback?
     ) {
         val imageViewTrip = viewHolder.imageViewTrip
         val textViewTitle = viewHolder.textViewTitle
         val textViewEtaInfo = viewHolder.textViewEtaInfo
+        val buttonJoinTrip = viewHolder.buttonJoinTrip
         textViewTitle?.text = "${data.route?.startLocationName} - ${data.route?.endLocationName}"
         textViewEtaInfo?.text = data.startDateAndTime?.toString("dd/MM/yyyy',' hh:mm:ss a")
         data.busImage?.let {
             if (it.isNotEmpty()) {
                 Picasso.get().load(data.busImage).into(imageViewTrip)
             }
+        }
+
+        buttonJoinTrip?.setOnClickListener {
+            callback?.onActionPerformed(data)
         }
     }
 

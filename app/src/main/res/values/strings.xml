@@ -38,7 +38,11 @@
     <string name="journey_made_easy">Easily get to anywhere</string>
     <string name="journey_made_easy_body">Find your ride from the comfort of your phone</string>
     <string name="newly_install">CleanInstallation</string>
-
+    <string name="cheking_seat_availabiliyy_in_bus">Cheking seat availabiliyy in bus</string>
+    <string name="select_seat">SELECT SEAT</string>
+    <string name="mumbai_pune">Mumbai - Pune</string>
+    <string name="make_payment">Make Payment</string>
+    <string name="tap_on_green_seat_to_book">Tap on green seat to book</string>
 
     <string name="play_service_not_available">Play service not available on this device</string>
     <string name="image_upload_failed">Failed to upload image, try again</string>
@@ -46,18 +50,15 @@
     <string name="title_profile">PROFILE</string>
     <string name="title_notification">NOTIFICATIONS</string>
     <string name="menu_notification">Notification</string>
-<<<<<<< HEAD
+
     <string name="map_key">AIzaSyDr6tESJ1alk31KCDJKaQlL-6Gf2R0EEDM</string>
     <string name="title_edit_profile">EDIT PROFILE</string>
     <string name="title_payment_methods">PAYMENT METHODS</string>
-=======
-    <string name="map_key">Notification</string>
+
     <string name="current_password">Current password</string>
     <string name="new_password">New password</string>
     <string name="new_password_conf">Confirm new password</string>
     <string name="update_password_btn">Update password</string>
     <string name="logout_tv">Logout</string>
->>>>>>> 3dc11fac332f86f424d20d7702b06007c93409b8
-
 
 </resources>

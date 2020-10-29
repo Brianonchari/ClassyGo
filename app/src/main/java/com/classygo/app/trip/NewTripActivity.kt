@@ -155,7 +155,7 @@ class NewTripActivity : AppCompatActivity() {
             .add(trip)
             .addOnSuccessListener {
                 BottomSuccessPage.newInstance(trip, object : DefaultCallback {
-                    override fun onActionPerformed() {
+                    override fun onActionPerformed(data: Any?) {
                         finish()
                     }
                 }).show(supportFragmentManager, TAG)
