@@ -14,12 +14,12 @@ import com.classygo.app.model.Trip
 import com.classygo.app.model.TripLocation
 import com.classygo.app.settings.NotificationActivity
 import com.classygo.app.settings.ProfileActivity
+import com.classygo.app.utils.DefaultCallback
 import com.classygo.app.utils.launchActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_all_trips.*
 import kotlinx.android.synthetic.main.home_toolbar.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AllTripsActivity : AppCompatActivity() {
 
@@ -37,6 +37,12 @@ class AllTripsActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbarHome as Toolbar?)
         supportActionBar?.title = ""
+
+        baseAdapter = FeedAdapter(feedItems, callback = object : DefaultCallback {
+            override fun onActionPerformed(data: Any?) {
+                launchActivity<SelectSeatActivity>()
+            }
+        })
 
         setUpRecyclerView()
 
@@ -96,7 +102,6 @@ class AllTripsActivity : AppCompatActivity() {
 
     //MARK: set the recycler view layouts
     private fun setUpRecyclerView() {
-        baseAdapter = FeedAdapter(feedItems)
         recyclerView.setHasFixedSize(true)
         recyclerView.isNestedScrollingEnabled = true
         val linearLayoutManager = LinearLayoutManager(this)

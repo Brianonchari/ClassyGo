@@ -2,13 +2,17 @@ package com.classygo.app.setup
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.classygo.app.R
 import com.classygo.app.model.Profile
+import com.classygo.app.trip.AllTripsActivity
+import com.classygo.app.utils.launchActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,17 +33,19 @@ class SignUpActivity : AppCompatActivity() {
             val lastName = last_nameEt.text.toString()
             val emailAddress = signup_email_address_et.text.toString()
             val isDriver = true
-            if(driver_checkbox.isChecked){
+            if (driver_checkbox.isChecked) {
                 val profile = Profile(firstName, lastName, emailAddress, isDriver)
                 saveProfile(profile)
-                startActivity(Intent(this, LoginActivity::class.java))
+               launchActivity<AllTripsActivity>()
                 finish()
-            }else{
+            } else {
                 val profile = Profile(firstName, lastName, emailAddress, !isDriver)
                 saveProfile(profile)
-                startActivity(Intent(this, LoginActivity::class.java))
+                launchActivity<AllTripsActivity>()
                 finish()
             }
+            val visibility = if (signup_progress.visibility == View.GONE) View.VISIBLE else View.GONE
+            signup_progress.visibility = visibility
             registerUser()
         }
 
@@ -61,7 +67,7 @@ class SignUpActivity : AppCompatActivity() {
                     .show()
             }
         } catch (ex: Exception) {
-            withContext(Dispatchers.Main){
+            withContext(Dispatchers.Main) {
                 Toast.makeText(this@SignUpActivity, "${ex.message}", Toast.LENGTH_SHORT).show()
             }
         }
@@ -70,7 +76,7 @@ class SignUpActivity : AppCompatActivity() {
     private fun registerUser() {
         val emailAddress = signup_email_address_et.text.toString()
         val password = signup_passwordEt.text.toString()
-
+        startProgressBar()
         if (emailAddress.isNotEmpty() && password.isNotEmpty()) {
             CoroutineScope(Dispatchers.IO).launch {
                 try {
@@ -93,5 +99,17 @@ class SignUpActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "You are logged in", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    fun startProgressBar() {
+        Thread(Runnable {
+            this@SignUpActivity.runOnUiThread {
+                signup_progress.visibility = View.VISIBLE
+            }
+
+            this@SignUpActivity.runOnUiThread {
+                signup_progress.visibility = View.GONE
+            }
+        }).start()
     }
 }

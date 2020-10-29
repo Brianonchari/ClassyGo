@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat
 import com.classygo.app.R
 import com.classygo.app.model.Trip
 import com.classygo.app.model.TripLocation
+import com.classygo.app.utils.DefaultCallback
 import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlacePicker
 import com.google.android.libraries.places.api.Places
@@ -153,7 +154,11 @@ class NewTripActivity : AppCompatActivity() {
         fireStore.collection("trips")
             .add(trip)
             .addOnSuccessListener {
-                BottomSuccessPage.newInstance(trip).show(supportFragmentManager, TAG)
+                BottomSuccessPage.newInstance(trip, object : DefaultCallback {
+                    override fun onActionPerformed(data: Any?) {
+                        finish()
+                    }
+                }).show(supportFragmentManager, TAG)
             }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
             .addOnCompleteListener {

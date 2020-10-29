@@ -3,6 +3,7 @@ package com.classygo.app.setup
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.classygo.app.R
 import com.classygo.app.trip.AllTripsActivity
@@ -25,6 +26,9 @@ class LoginActivity : AppCompatActivity() {
 
         btnSignIn.setOnClickListener {
             loginUser()
+            val visibility = if (login_progress.visibility == View.GONE) View.VISIBLE else View.GONE
+            login_progress.visibility = visibility
+
         }
 
         goto_signup_tv.setOnClickListener {
@@ -51,6 +55,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+
     }
 
     private fun checkLoggedInState() {
@@ -66,4 +71,7 @@ class LoginActivity : AppCompatActivity() {
         super.onStart()
         checkLoggedInState()
     }
+
+
+
 }

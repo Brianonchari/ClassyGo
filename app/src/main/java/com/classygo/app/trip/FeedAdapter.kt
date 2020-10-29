@@ -8,9 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.classygo.app.R
 import com.classygo.app.model.NotificationItem
+import com.classygo.app.model.PaymentMethodItem
 import com.classygo.app.model.Trip
+import com.classygo.app.utils.DefaultCallback
 import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 import khronos.toString
 
 
@@ -18,10 +21,11 @@ import khronos.toString
  * Created by Monarchy on 17/10/2020.
  */
 
-class FeedAdapter(private var items: List<Any>) :
+class FeedAdapter(private var items: List<Any>, private var callback: DefaultCallback? = null) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val constant = 100
     private val notificationConstant = 200
+    private val paymentMethodConstant = 300
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var viewHolder: RecyclerView.ViewHolder? = null
@@ -36,6 +40,11 @@ class FeedAdapter(private var items: List<Any>) :
                     inflater.inflate(R.layout.notification_card_item, viewGroup, false)
                 viewHolder = NotificationViewHolder(viewHolderItem)
             }
+            paymentMethodConstant -> {
+                val viewHolderItem =
+                    inflater.inflate(R.layout.payment_method_card_item, viewGroup, false)
+                viewHolder = PaymentMethodViewHolder(viewHolderItem)
+            }
         }
         return viewHolder!!
     }
@@ -43,12 +52,22 @@ class FeedAdapter(private var items: List<Any>) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
             constant -> {
-                configureTripViewHolder(holder as TripViewHolder, items[position] as Trip)
+                configureTripViewHolder(
+                    holder as TripViewHolder,
+                    items[position] as Trip,
+                    callback = callback
+                )
             }
             notificationConstant -> {
                 configureNotificationViewHolder(
                     holder as NotificationViewHolder,
                     items[position] as NotificationItem
+                )
+            }
+            paymentMethodConstant -> {
+                configurePaymentMethodViewHolder(
+                    holder as PaymentMethodViewHolder,
+                    items[position] as PaymentMethodItem
                 )
             }
         }
@@ -62,6 +81,7 @@ class FeedAdapter(private var items: List<Any>) :
         return when {
             items[position] is Trip -> constant
             items[position] is NotificationItem -> notificationConstant
+            items[position] is PaymentMethodItem -> paymentMethodConstant
             else -> -1
         }
     }
@@ -69,18 +89,22 @@ class FeedAdapter(private var items: List<Any>) :
     // MARK: configure the trip
     private fun configureTripViewHolder(
         viewHolder: TripViewHolder,
-        data: Trip
+        data: Trip, callback: DefaultCallback?
     ) {
-        val parent = viewHolder.itemView
         val imageViewTrip = viewHolder.imageViewTrip
         val textViewTitle = viewHolder.textViewTitle
         val textViewEtaInfo = viewHolder.textViewEtaInfo
+        val buttonJoinTrip = viewHolder.buttonJoinTrip
         textViewTitle?.text = "${data.route?.startLocationName} - ${data.route?.endLocationName}"
         textViewEtaInfo?.text = data.startDateAndTime?.toString("dd/MM/yyyy',' hh:mm:ss a")
         data.busImage?.let {
             if (it.isNotEmpty()) {
                 Picasso.get().load(data.busImage).into(imageViewTrip)
             }
+        }
+
+        buttonJoinTrip?.setOnClickListener {
+            callback?.onActionPerformed(data)
         }
     }
 
@@ -93,6 +117,17 @@ class FeedAdapter(private var items: List<Any>) :
         val textViewMessage = viewHolder.textViewMessage
         textViewTitle?.text = data.title
         textViewMessage?.text = data.date?.toString("dd/MM/yyyy',' hh:mm:ss a")
+    }
+
+    // MARK: configure the payment method
+    private fun configurePaymentMethodViewHolder(
+        viewHolder: PaymentMethodViewHolder,
+        data: PaymentMethodItem
+    ) {
+        val textViewTitle = viewHolder.textViewTitle
+        val textViewContent = viewHolder.textViewContent
+        val circleImageView = viewHolder.circleImageView
+        textViewTitle?.text = data.name
     }
 }
 
@@ -119,6 +154,19 @@ class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     init {
         textViewTitle = itemView.findViewById(R.id.textViewTitle)
         textViewMessage = itemView.findViewById(R.id.textViewMessage)
+    }
+}
+
+//MARK: view holder of the payment method item
+class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    var textViewTitle: TextView? = null
+    var textViewContent: TextView? = null
+    var circleImageView: CircleImageView? = null
+
+    init {
+        textViewTitle = itemView.findViewById(R.id.textViewTitle)
+        textViewContent = itemView.findViewById(R.id.textViewContent)
+        circleImageView = itemView.findViewById(R.id.circleImageView)
     }
 }
 
