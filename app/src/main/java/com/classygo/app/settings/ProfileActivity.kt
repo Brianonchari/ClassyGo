@@ -6,14 +6,22 @@ import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import com.classygo.app.R
 
-import com.classygo.app.payment.PaymentMethods
+
+import com.classygo.app.onboard.OnBoardActivity
 import com.classygo.app.utils.launchActivity
+import com.google.firebase.auth.FirebaseAuth
+
+import com.classygo.app.payment.PaymentMethods
 import kotlinx.android.synthetic.main.activity_new_trip.toolbar
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.toolbar.*
 
 
 class ProfileActivity : AppCompatActivity() {
+
+
+    private lateinit var mCurrentUser: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,15 +42,15 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         cardViewSecurity.setOnClickListener {
-            launchActivity<ChangePasswordActivity> { }
+            changePassword()
         }
 
         cardViewProfile.setOnClickListener {
 
         }
 
-        circleImageViewProfile.setOnClickListener {
-
+        cardViewLogOut.setOnClickListener {
+            logOut()
         }
 
     }
@@ -54,5 +62,16 @@ class ProfileActivity : AppCompatActivity() {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun changePassword() {
+        launchActivity<ChangePasswordActivity>()
+    }
+
+    private fun logOut() {
+        mCurrentUser = FirebaseAuth.getInstance()
+        mCurrentUser.signOut()
+        launchActivity<OnBoardActivity>()
+        finish()
     }
 }
