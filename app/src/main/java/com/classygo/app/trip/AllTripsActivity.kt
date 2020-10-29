@@ -17,9 +17,11 @@ import com.classygo.app.settings.ProfileActivity
 import com.classygo.app.utils.DefaultCallback
 import com.classygo.app.utils.launchActivity
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_all_trips.*
 import kotlinx.android.synthetic.main.home_toolbar.*
 import java.util.*
+import kotlin.collections.HashMap
 
 class AllTripsActivity : AppCompatActivity() {
 
@@ -81,10 +83,10 @@ class AllTripsActivity : AppCompatActivity() {
                 progressBar.visibility = View.INVISIBLE
                 result.forEach {
                     val data = it.data
-                    val route = TripLocation()
+                    val route = data["route"] as HashMap<*, *>
                     val trip = Trip(
                         it.id,
-                        route,
+                        TripLocation(startLocationName =  route["startLocationName"].toString(), endLocationName = route["endLocationName"].toString()),
                         "",
                         data["busImage"].toString(),
                         Date(),
