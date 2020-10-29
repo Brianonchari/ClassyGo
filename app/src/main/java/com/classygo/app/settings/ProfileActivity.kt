@@ -5,12 +5,19 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import com.classygo.app.R
+
+
 import com.classygo.app.databinding.ActivityProfileBinding
 import com.classygo.app.onboard.OnBoardActivity
 import com.classygo.app.utils.launchActivity
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_new_trip.*
+
+import com.classygo.app.payment.PaymentMethods
+import com.classygo.app.utils.launchActivity
 import kotlinx.android.synthetic.main.activity_new_trip.toolbar
+import kotlinx.android.synthetic.main.activity_profile.*
+import kotlinx.android.synthetic.main.toolbar.*
+
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -26,12 +33,30 @@ class ProfileActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
         textViewTitle.text = getString(R.string.title_profile)
-        changePassword()
-        logOut()
 
 
+        cardViewNotification.setOnClickListener {
+            launchActivity<NotificationActivity> { }
+        }
+
+        cardViewPaymentMethods.setOnClickListener {
+            launchActivity<PaymentMethods> { }
+        }
+
+        cardViewSecurity.setOnClickListener {
+            launchActivity<ChangePasswordActivity> { }
+        }
+
+        cardViewProfile.setOnClickListener {
+
+        }
+
+        circleImageViewProfile.setOnClickListener {
+
+        }
 
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
@@ -58,8 +83,4 @@ class ProfileActivity : AppCompatActivity() {
         }
 
     }
-
-
-
-
 }

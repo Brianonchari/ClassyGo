@@ -20,6 +20,7 @@ import com.classygo.app.model.Trip
 import com.classygo.app.model.TripLocation
 import com.google.android.gms.location.places.Place
 import com.google.android.gms.location.places.ui.PlacePicker
+import com.google.android.libraries.places.api.Places
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -54,11 +55,15 @@ class NewTripActivity : AppCompatActivity() {
         supportActionBar?.title = ""
         textViewTitle.text = getString(R.string.title_new_trip)
 
+        // Initialize Places.
+        Places.initialize(applicationContext, getString(R.string.map_key))
+
         //MARK: start start location picker
         tilStartLocation.setEndIconOnClickListener {
             openStartLocationActivity.launch(PlacePicker.IntentBuilder().build(this))
+            //val placesClient = Places.createClient(this)
+            //placesClient.findAutocompletePredictions(object )
         }
-
         //MARK: start end location picker
         tilEndLocation.setEndIconOnClickListener {
             openEndLocationActivity.launch(PlacePicker.IntentBuilder().build(this))
@@ -117,6 +122,11 @@ class NewTripActivity : AppCompatActivity() {
             Toast.makeText(this, "Provide a start and an end location", Toast.LENGTH_SHORT).show()
             return
         }
+        if (fileUrl.isEmpty()) {
+            Toast.makeText(this, "Provide an image of your bus and proceed", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
         val numberOfPaxAllowed = tieTripNumberOfPax.text?.trim().toString()
         val tripLocation = TripLocation(
             startPlace!!.name.toString(),
@@ -143,8 +153,7 @@ class NewTripActivity : AppCompatActivity() {
         fireStore.collection("trips")
             .add(trip)
             .addOnSuccessListener {
-                Log.d(TAG, "DocumentSnapshot successfully written!")
-                BottomSuccessPage.newInstance(trip).show(supportFragmentManager, "")
+                BottomSuccessPage.newInstance(trip).show(supportFragmentManager, TAG)
             }
             .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
             .addOnCompleteListener {
@@ -170,13 +179,13 @@ class NewTripActivity : AppCompatActivity() {
             // Defining the child of storageReference
             val ref = storageReference?.child("images/" + UUID.randomUUID().toString())
             ref?.putFile(it)?.addOnSuccessListener { fileUploaded ->
-                fileUrl = fileUploaded.uploadSessionUri?.path.toString()
+                fileUrl = ref.downloadUrl.toString()
+                Log.e("URL", fileUrl)
                 mbPostTrip.isEnabled = true
                 progressBar.visibility = View.INVISIBLE
             }?.addOnFailureListener { e ->
                 mbPostTrip.isEnabled = true
                 progressBar.visibility = View.INVISIBLE
-                Log.e("ERROR", e.message.toString())
                 Toast.makeText(this, getString(R.string.image_upload_failed), Toast.LENGTH_SHORT)
                     .show()
             }?.addOnProgressListener { taskSnapshot ->
@@ -192,6 +201,7 @@ class NewTripActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 startPlace = PlacePicker.getPlace(this, result.data)
+                Log.e("LOC", startPlace.toString())
                 tieTripStartLocation.setText(startPlace?.name)
             }
         }
