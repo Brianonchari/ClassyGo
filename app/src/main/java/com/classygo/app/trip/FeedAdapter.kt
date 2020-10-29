@@ -8,9 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.classygo.app.R
 import com.classygo.app.model.NotificationItem
+import com.classygo.app.model.PaymentMethodItem
 import com.classygo.app.model.Trip
 import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
 import khronos.toString
 
 
@@ -22,6 +24,7 @@ class FeedAdapter(private var items: List<Any>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private val constant = 100
     private val notificationConstant = 200
+    private val paymentMethodConstant = 300
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var viewHolder: RecyclerView.ViewHolder? = null
@@ -35,6 +38,11 @@ class FeedAdapter(private var items: List<Any>) :
                 val viewHolderItem =
                     inflater.inflate(R.layout.notification_card_item, viewGroup, false)
                 viewHolder = NotificationViewHolder(viewHolderItem)
+            }
+            paymentMethodConstant -> {
+                val viewHolderItem =
+                    inflater.inflate(R.layout.payment_method_card_item, viewGroup, false)
+                viewHolder = PaymentMethodViewHolder(viewHolderItem)
             }
         }
         return viewHolder!!
@@ -51,6 +59,12 @@ class FeedAdapter(private var items: List<Any>) :
                     items[position] as NotificationItem
                 )
             }
+            paymentMethodConstant -> {
+                configurePaymentMethodViewHolder(
+                    holder as PaymentMethodViewHolder,
+                    items[position] as PaymentMethodItem
+                )
+            }
         }
     }
 
@@ -62,6 +76,7 @@ class FeedAdapter(private var items: List<Any>) :
         return when {
             items[position] is Trip -> constant
             items[position] is NotificationItem -> notificationConstant
+            items[position] is PaymentMethodItem -> paymentMethodConstant
             else -> -1
         }
     }
@@ -71,7 +86,6 @@ class FeedAdapter(private var items: List<Any>) :
         viewHolder: TripViewHolder,
         data: Trip
     ) {
-        val parent = viewHolder.itemView
         val imageViewTrip = viewHolder.imageViewTrip
         val textViewTitle = viewHolder.textViewTitle
         val textViewEtaInfo = viewHolder.textViewEtaInfo
@@ -93,6 +107,17 @@ class FeedAdapter(private var items: List<Any>) :
         val textViewMessage = viewHolder.textViewMessage
         textViewTitle?.text = data.title
         textViewMessage?.text = data.date?.toString("dd/MM/yyyy',' hh:mm:ss a")
+    }
+
+    // MARK: configure the payment method
+    private fun configurePaymentMethodViewHolder(
+        viewHolder: PaymentMethodViewHolder,
+        data: PaymentMethodItem
+    ) {
+        val textViewTitle = viewHolder.textViewTitle
+        val textViewContent = viewHolder.textViewContent
+        val circleImageView = viewHolder.circleImageView
+        textViewTitle?.text = data.name
     }
 }
 
@@ -119,6 +144,19 @@ class NotificationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     init {
         textViewTitle = itemView.findViewById(R.id.textViewTitle)
         textViewMessage = itemView.findViewById(R.id.textViewMessage)
+    }
+}
+
+//MARK: view holder of the payment method item
+class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    var textViewTitle: TextView? = null
+    var textViewContent: TextView? = null
+    var circleImageView: CircleImageView? = null
+
+    init {
+        textViewTitle = itemView.findViewById(R.id.textViewTitle)
+        textViewContent = itemView.findViewById(R.id.textViewContent)
+        circleImageView = itemView.findViewById(R.id.circleImageView)
     }
 }
 
