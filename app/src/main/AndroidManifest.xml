@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".trip.SelectSeatActivity"></activity>
-        <activity android:name=".trip.ScanAvailableSeatsActivity" />
+        <activity android:name=".trip.ScanSeatsAvailabilityActivity" />
         <activity android:name=".onboard.OnBoardActivity" />
         <activity android:name=".trip.NewTrip" />
         <activity android:name=".trip.AllTripsActivity" />

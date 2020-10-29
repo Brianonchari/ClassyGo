@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_scan_available_seats.*
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
-class ScanAvailableSeatsActivity : AppCompatActivity() {
+class ScanSeatsAvailabilityActivity : AppCompatActivity() {
     private lateinit var codeScanner: CodeScanner
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

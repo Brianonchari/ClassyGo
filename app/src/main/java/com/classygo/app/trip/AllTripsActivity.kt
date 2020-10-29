@@ -28,7 +28,7 @@ class AllTripsActivity : AppCompatActivity() {
 
         setUpRecyclerView()
         baseAdapter?.setOnItemClickListener {
-            launchActivity<ScanAvailableSeatsActivity>()
+            launchActivity<ScanSeatsAvailabilityActivity>()
         }
 
         fabNewTrip.setOnClickListener {
