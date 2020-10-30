@@ -1,5 +1,6 @@
 package com.classygo.app.payment
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -37,7 +38,12 @@ class PaymentMethods : AppCompatActivity() {
 
     //MARK: set the recycler view layouts
     private fun setUpRecyclerView() {
-        baseAdapter = FeedAdapter(feedItems)
+        baseAdapter = FeedAdapter(feedItems, object : DefaultCallback {
+            override fun onActionPerformed(data: Any?) {
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+            }
+        })
         recyclerView.setHasFixedSize(true)
         recyclerView.isNestedScrollingEnabled = true
         val linearLayoutManager = LinearLayoutManager(this)

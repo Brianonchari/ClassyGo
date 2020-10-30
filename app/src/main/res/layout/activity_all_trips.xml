@@ -30,7 +30,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingBottom="@dimen/activity_large_margin"
+        android:paddingBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,6 +74,8 @@
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:drawableStart="@drawable/ic_searching"
             android:drawablePadding="@dimen/margin_small"
+            android:maxLines="1"
+            android:lines="1"
             android:hint="@string/where_are_you_heading"
             android:imeOptions="actionSearch"
             android:padding="@dimen/activity_horizontal_margin" />

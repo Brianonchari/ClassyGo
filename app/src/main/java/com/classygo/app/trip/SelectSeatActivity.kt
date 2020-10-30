@@ -1,40 +1,32 @@
 package com.classygo.app.trip
 
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import android.util.TypedValue
-import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.classygo.app.R
+import com.classygo.app.model.SeatItem
+import com.classygo.app.payment.PaymentMethods
+import com.classygo.app.utils.DefaultCallback
+import com.google.android.gms.location.places.ui.PlacePicker
+import kotlinx.android.synthetic.main.activity_new_trip.*
 import kotlinx.android.synthetic.main.activity_select_seat.*
 import kotlinx.android.synthetic.main.activity_select_seat.toolbar
 import kotlinx.android.synthetic.main.toolbar.*
-import java.util.ArrayList
+import kotlinx.android.synthetic.main.toolbar.textViewTitle
+import java.util.*
 
 class SelectSeatActivity : AppCompatActivity(), View.OnClickListener {
-    var layout: ViewGroup? = null
-    var seats = ("AA_UA_/"
-            + "_______________/"
-            + "AA_AA_/"
-            + "AA_AA_/"
-            + "AA_AA_/"
-            + "AA_AA_/"
-            + "_________________/")
-    var seatViewList: MutableList<TextView> = ArrayList()
-    var seatSize = 100
-    var seatGaping = 5
 
-    var STATUS_AVAILABLE = 1
-    var STATUS_BOOKED = 2
-    var STATUS_RESERVED = 3
-    var selectedIds = ""
+    private var feedItems = ArrayList<SeatItem>()
+    private var selectedSeats = ArrayList<SeatItem>()
+    private var baseAdapter: FeedAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,108 +37,54 @@ class SelectSeatActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar?.title = ""
         textViewTitle.text = getString(R.string.select_seat)
 
+        baseAdapter = FeedAdapter(feedItems, callback = object : DefaultCallback {
+            override fun onActionPerformed(data: Any?) {
+                data?.let {
+                    val selectedPosition = data as Int
+                    feedItems[selectedPosition].isSelected =
+                        !feedItems[selectedPosition].isSelected!!
+                    baseAdapter?.notifyItemChanged(selectedPosition)
+                }
 
-        layout = findViewById(R.id.layoutSeat)
-        seats = "/$seats"
-
-        val layoutSeat = LinearLayout(this)
-        val params = LinearLayout.LayoutParams(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT
-        )
-        layoutSeat.orientation = LinearLayout.VERTICAL
-        layoutSeat.layoutParams = params
-        layoutSeat.setPadding(4 * seatGaping, 4 * seatGaping, 4 * seatGaping, 4 * seatGaping)
-        layout?.addView(layoutSeat)
-        var layout: LinearLayout? = null
-
-        var count = 0
-        for (index in 0 until seats.length) {
-            if (seats[index] == '/') {
-                layout = LinearLayout(this)
-                layout.orientation = LinearLayout.HORIZONTAL
-                layoutSeat.addView(layout)
-            } else if (seats[index] == 'U') {
-                count++
-                val view = TextView(this)
-                val layoutParams =
-                    LinearLayout.LayoutParams(seatSize, seatSize)
-                layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
-                view.layoutParams = layoutParams
-                view.setPadding(0, 0, 0, 2 * seatGaping)
-                view.id = count
-                view.gravity = Gravity.CENTER
-                view.setBackgroundResource(R.drawable.ic_car_seat_booked)
-                view.setTextColor(Color.WHITE)
-                view.tag = STATUS_BOOKED
-                view.text = count.toString() + ""
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 9f)
-                layout!!.addView(view)
-                seatViewList.add(view)
-                view.setOnClickListener(this)
-            } else if (seats[index] == 'A') {
-                count++
-                val view = TextView(this)
-                val layoutParams =
-                    LinearLayout.LayoutParams(seatSize, seatSize)
-                layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
-                view.layoutParams = layoutParams
-                view.setPadding(0, 0, 0, 2 * seatGaping)
-                view.id = count
-                view.gravity = Gravity.CENTER
-                view.setBackgroundResource(R.drawable.ic_car_seat_available)
-                view.text = count.toString() + ""
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 9f)
-                view.setTextColor(Color.BLACK)
-                view.tag = STATUS_AVAILABLE
-                layout!!.addView(view)
-                seatViewList.add(view)
-                view.setOnClickListener(this)
-            } else if (seats[index] == 'R') {
-                count++
-                val view = TextView(this)
-                val layoutParams =
-                    LinearLayout.LayoutParams(seatSize, seatSize)
-                layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
-                view.layoutParams = layoutParams
-                view.setPadding(0, 0, 0, 2 * seatGaping)
-                view.id = count
-                view.gravity = Gravity.CENTER
-                view.setBackgroundResource(R.drawable.ic_car_seat_booked)
-                view.text = count.toString() + ""
-                view.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 9f)
-                view.setTextColor(Color.WHITE)
-                view.tag = STATUS_RESERVED
-                layout!!.addView(view)
-                seatViewList.toMutableList().add(view)
-                view.setOnClickListener(this)
-            } else if (seats[index] == '_') {
-                val view = TextView(this)
-                val layoutParams =
-                    LinearLayout.LayoutParams(seatSize, seatSize)
-                layoutParams.setMargins(seatGaping, seatGaping, seatGaping, seatGaping)
-                view.layoutParams = layoutParams
-                view.setBackgroundColor(Color.TRANSPARENT)
-                view.text = ""
-                layout!!.addView(view)
             }
+        })
+
+        setUpRecyclerView()
+
+        val numberAllowed = intent.getIntExtra("NUMBER", 0)
+        val tripName = intent.getStringExtra("NAME")
+        textViewBusName.text = tripName
+        for (x in 1..numberAllowed) {
+            val seat = SeatItem(x.toString(), x.toString(), false)
+            feedItems.add(seat)
+        }
+        baseAdapter?.notifyDataSetChanged()
+
+        buttonPay.setOnClickListener {
+            openPaymentActivity.launch(Intent(this, PaymentMethods::class.java))
         }
     }
 
-    override fun onClick(view: View?) {
-        if (view?.getTag() as Int == STATUS_AVAILABLE) {
-            if (selectedIds.contains(view.getId().toString() + ",")) {
-                selectedIds = selectedIds.replace(view.getId().toString() + ",", "")
-                view.setBackgroundResource(R.drawable.ic_car_seat_available)
-            } else {
-                selectedIds = selectedIds + view.getId() + ","
-                view.setBackgroundResource(R.drawable.ic_car_seat_booked)
-            }
-        } else if (view.getTag() as Int == STATUS_BOOKED) {
-            Toast.makeText(this, "Seat " + view.getId() + " is Booked", Toast.LENGTH_SHORT).show()
-        } else if (view.getTag() as Int == STATUS_RESERVED) {
-            Toast.makeText(this, "Seat " + view.getId() + " is Reserved", Toast.LENGTH_SHORT).show()
+    //MARK: handle end location things
+    private val openPaymentActivity =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            setResult(Activity.RESULT_OK)
+            finish()
         }
+
+    //MARK: set the recycler view layouts
+    private fun setUpRecyclerView() {
+        recyclerView.setHasFixedSize(true)
+        recyclerView.isNestedScrollingEnabled = true
+        val linearLayoutManager = GridLayoutManager(this, 4)
+        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+        recyclerView.layoutManager = linearLayoutManager
+        recyclerView.adapter = baseAdapter
+    }
+
+
+    override fun onClick(view: View?) {
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

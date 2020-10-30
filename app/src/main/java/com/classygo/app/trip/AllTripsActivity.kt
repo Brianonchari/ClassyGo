@@ -1,17 +1,22 @@
 package com.classygo.app.trip
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.classygo.app.R
 import com.classygo.app.model.Trip
 import com.classygo.app.model.TripLocation
+import com.classygo.app.payment.PaymentMethods
 import com.classygo.app.settings.NotificationActivity
 import com.classygo.app.settings.ProfileActivity
 import com.classygo.app.utils.DefaultCallback
@@ -42,7 +47,16 @@ class AllTripsActivity : AppCompatActivity() {
 
         baseAdapter = FeedAdapter(feedItems, callback = object : DefaultCallback {
             override fun onActionPerformed(data: Any?) {
-                launchActivity<SelectSeatActivity>()
+                data?.let {
+                    val trip = data as Trip
+                    val name = "${trip.route?.startLocationName} - ${trip.route?.endLocationName}"
+                    val seatIntent = Intent(this@AllTripsActivity, SelectSeatActivity::class.java)
+                    seatIntent.putExtra("NUMBER", trip.numberOfPaxAllowed)
+                    seatIntent.putExtra("NAME", name)
+                    startActivity(seatIntent)
+                    openSeatActivity.launch(seatIntent)
+                }
+
             }
         })
 
@@ -68,6 +82,18 @@ class AllTripsActivity : AppCompatActivity() {
         getAllTrips()
     }
 
+    //MARK: handle end location things
+    private val openSeatActivity =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                Toast.makeText(
+                    this,
+                    "Trip booking request sent to trip organiser, you'll receive confirmation soon",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
     //MARK: handle search
     private fun handleSearch(keyWord: String) {
         if (keyWord.isNotEmpty()) {
@@ -83,14 +109,19 @@ class AllTripsActivity : AppCompatActivity() {
                 progressBar.visibility = View.INVISIBLE
                 result.forEach {
                     val data = it.data
+                    val numberAllowed = data["numberOfPaxAllowed"].toString()
                     val route = data["route"] as HashMap<*, *>
                     val trip = Trip(
                         it.id,
-                        TripLocation(startLocationName =  route["startLocationName"].toString(), endLocationName = route["endLocationName"].toString()),
+                        TripLocation(
+                            startLocationName = route["startLocationName"].toString(),
+                            endLocationName = route["endLocationName"].toString()
+                        ),
                         "",
                         data["busImage"].toString(),
                         Date(),
-                        Date()
+                        Date(),
+                        numberOfPaxAllowed = numberAllowed.toInt()
                     )
                     feedItems.add(trip)
                 }

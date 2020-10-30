@@ -9,8 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.classygo.app.R
 import com.classygo.app.model.NotificationItem
 import com.classygo.app.model.PaymentMethodItem
+import com.classygo.app.model.SeatItem
 import com.classygo.app.model.Trip
 import com.classygo.app.utils.DefaultCallback
+import com.classygo.app.utils.PaymentTypes
 import com.google.android.material.button.MaterialButton
 import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
@@ -26,6 +28,7 @@ class FeedAdapter(private var items: List<Any>, private var callback: DefaultCal
     private val constant = 100
     private val notificationConstant = 200
     private val paymentMethodConstant = 300
+    private val seatConstant = 400
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var viewHolder: RecyclerView.ViewHolder? = null
@@ -45,6 +48,11 @@ class FeedAdapter(private var items: List<Any>, private var callback: DefaultCal
                     inflater.inflate(R.layout.payment_method_card_item, viewGroup, false)
                 viewHolder = PaymentMethodViewHolder(viewHolderItem)
             }
+            seatConstant -> {
+                val viewHolderItem =
+                    inflater.inflate(R.layout.seat_item, viewGroup, false)
+                viewHolder = SeatViewHolder(viewHolderItem)
+            }
         }
         return viewHolder!!
     }
@@ -58,6 +66,13 @@ class FeedAdapter(private var items: List<Any>, private var callback: DefaultCal
                     callback = callback
                 )
             }
+            seatConstant -> {
+                configureSeatViewHolder(
+                    holder as SeatViewHolder,
+                    items[position] as SeatItem,
+                    callback = callback
+                )
+            }
             notificationConstant -> {
                 configureNotificationViewHolder(
                     holder as NotificationViewHolder,
@@ -67,7 +82,8 @@ class FeedAdapter(private var items: List<Any>, private var callback: DefaultCal
             paymentMethodConstant -> {
                 configurePaymentMethodViewHolder(
                     holder as PaymentMethodViewHolder,
-                    items[position] as PaymentMethodItem
+                    items[position] as PaymentMethodItem,
+                    callback
                 )
             }
         }
@@ -82,6 +98,7 @@ class FeedAdapter(private var items: List<Any>, private var callback: DefaultCal
             items[position] is Trip -> constant
             items[position] is NotificationItem -> notificationConstant
             items[position] is PaymentMethodItem -> paymentMethodConstant
+            items[position] is SeatItem -> seatConstant
             else -> -1
         }
     }
@@ -108,6 +125,27 @@ class FeedAdapter(private var items: List<Any>, private var callback: DefaultCal
         }
     }
 
+    // MARK: configure the seat
+    private fun configureSeatViewHolder(
+        viewHolder: SeatViewHolder,
+        data: SeatItem, callback: DefaultCallback?
+    ) {
+        val imageViewSeatImage = viewHolder.imageViewSeatImage
+        val textViewSeatNumber = viewHolder.textViewSeatNumber
+        textViewSeatNumber?.text = data.number
+        data.isSelected?.let {
+            if (it) {
+                imageViewSeatImage?.setImageResource(R.drawable.ic_car_seat_booked)
+            } else {
+                imageViewSeatImage?.setImageResource(R.drawable.ic_car_seat_available)
+            }
+        }
+
+        viewHolder.itemView.setOnClickListener {
+            callback?.onActionPerformed(viewHolder.adapterPosition)
+        }
+    }
+
     // MARK: configure the notification
     private fun configureNotificationViewHolder(
         viewHolder: NotificationViewHolder,
@@ -122,12 +160,29 @@ class FeedAdapter(private var items: List<Any>, private var callback: DefaultCal
     // MARK: configure the payment method
     private fun configurePaymentMethodViewHolder(
         viewHolder: PaymentMethodViewHolder,
-        data: PaymentMethodItem
+        data: PaymentMethodItem, callback: DefaultCallback?
     ) {
         val textViewTitle = viewHolder.textViewTitle
         val textViewContent = viewHolder.textViewContent
         val circleImageView = viewHolder.circleImageView
         textViewTitle?.text = data.name
+        textViewContent?.text = data.pan
+
+        when (data.type) {
+            PaymentTypes.AMEX_CARD.name -> {
+                circleImageView?.setImageResource(R.drawable.ic_amex)
+            }
+            PaymentTypes.VISA.name -> {
+                circleImageView?.setImageResource(R.drawable.ic_visa)
+            }
+            PaymentTypes.MASTER_CARD.name -> {
+                circleImageView?.setImageResource(R.drawable.ic_mastercard)
+            }
+        }
+
+        viewHolder.itemView.setOnClickListener {
+            callback?.onActionPerformed(data)
+        }
     }
 }
 
@@ -169,4 +224,16 @@ class PaymentMethodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView
         circleImageView = itemView.findViewById(R.id.circleImageView)
     }
 }
+
+//MARK: view holder of the seat item
+class SeatViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    var textViewSeatNumber: TextView? = null
+    var imageViewSeatImage: ImageView? = null
+
+    init {
+        textViewSeatNumber = itemView.findViewById(R.id.textViewSeatNumber)
+        imageViewSeatImage = itemView.findViewById(R.id.imageViewSeatImage)
+    }
+}
+
 
