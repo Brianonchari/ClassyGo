@@ -89,5 +89,8 @@ dependencies {
     /**Scanner View**/
     implementation 'com.budiyev.android:code-scanner:2.1.0'
 
+    /**flutterwave**/
+    implementation 'com.github.flutterwave.rave-android:rave_android:2.1.34'
+
 }
 
